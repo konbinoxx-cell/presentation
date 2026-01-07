@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>我與 AI 的故事｜一個老工程師的新探索</title>
+  <style>
+    :root {
+      --bg-dark: #020617;
+      --bg-mid: #0f172a;
+      --fg: #e5e7eb;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --muted: #94a3b8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: radial-gradient(circle at top, #020617, #000);
+      color: var(--fg);
+      overflow: hidden;
+    }
+
+    /* ---------- Slides ---------- */
+    section {
+      position: relative;
+      height: 100vh;
+      padding: 10vh 12vw;
+      display: none;
+      overflow: hidden;
+      animation: fadeIn 0.8s ease both;
+    }
+    section.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---------- Background Image Layer ---------- */
+    .bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.35) saturate(1.1) contrast(1.05);
+      transform: scale(1.08);
+      z-index: 0;
+    }
+
+    .bg::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(2,6,23,0.6),
+        rgba(2,6,23,0.9)
+      );
+    }
+
+    /* ---------- Content ---------- */
+    .content {
+      position: relative;
+      z-index: 1;
+      max-width: 1100px;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6vw, 4.5rem);
+      margin: 0 0 1rem 0;
+      letter-spacing: -0.02em;
+    }
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      margin-bottom: 1.5rem;
+      color: var(--accent);
+    }
+    p, li {
+      font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+      line-height: 1.7;
+      color: var(--fg);
+    }
+    ul { padding-left: 1.2em; }
+
+    .highlight {
+      color: var(--accent-2);
+      font-weight: 600;
+    }
+
+    /* ---------- Footer & Hint ---------- */
+    .footer, .hint {
+      position: fixed;
+      bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      letter-spacing: 0.05em;
+    }
+    .footer { right: 1.5rem; }
+    .hint { left: 1.5rem; }
+
+    /* ---------- Progress Bar ---------- */
+    .progress {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      height: 4px;
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+    }
+    .progress span {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      transition: width 0.4s ease;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Slide 1 -->
+  <section class="active">
+    <div class="bg" style="background-image:url('images/cover-ai.jpg')"></div>
+    <div class="content">
+      <h1>我與 AI 的故事</h1>
+      <h2>一個老工程師的新探索</h2>
+      <p>📅 1月11日｜西部時間 下午5點</p>
+      <p>🔗 Zoom ID: 832 2328 9056｜密碼 77777</p>
+      <p>👤 John弟兄 主領</p>
+      <p class="highlight">矽谷生命河靈糧堂｜弟兄讀書會</p>
+    </div>
+  </section>
+
+  <!-- Slide 2 -->
+  <section>
+    <div class="bg" style="background-image:url('images/audience.jpg')"></div>
+    <div class="content">
+      <h2>開場：班門弄斧</h2>
+      <ul>
+        <li>在座各位：<span class="highlight">做 AI 的專業人士</span></li>
+        <li>我自己：<span class="highlight">用 AI 的老工程師</span></li>
+      </ul>
+      <p>這是一場拋磚引玉的分享：<br/>磚是我的體驗，玉是對產品與設計的反思。</p>
+    </div>
+  </section>
+
+  <!-- Slide 3 -->
+  <section>
+    <div class="bg" style="background-image:url('images/engineer.jpg')"></div>
+    <div class="content">
+      <h2>我的背景</h2>
+      <ul>
+        <li>70+ 歲，老工程師</li>
+        <li>幾個月 AI 實驗</li>
+        <li>完成約 30 個小應用</li>
+        <li>全部來自真實需求</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Slide 4 -->
+  <section>
+    <div class="bg" style="background-image:url('images/idea.jpg')"></div>
+    <div class="content">
+      <h2>真正的主題</h2>
+      <p><strong>不是</strong>「老人學會新技術」</p>
+      <p><strong>而是</strong>「老工程師找到新工具」</p>
+      <p class="highlight">技術門檻下降，判斷與經驗更重要。</p>
+    </div>
+  </section>
+
+  <!-- Slide 5 -->
+  <section>
+    <div class="bg" style="background-image:url('images/life.jpg')"></div>
+    <div class="content">
+      <h2>AI 與現實生活</h2>
+      <p>30 個應用，沒有一個為了炫技。</p>
+      <p><strong>唯一的問題：</strong>事情能不能更簡單？</p>
+    </div>
+  </section>
+
+  <!-- Slide 6 -->
+  <section>
+    <div class="bg" style="background-image:url('images/zoom.jpg')"></div>
+    <div class="content">
+      <h2>案例一：Zoom 聚會</h2>
+      <p>問題：主持人混亂、權限難交接。</p>
+      <p>解法：Zoom 交接器 —— <span class="highlight">一鍵交接</span>。</p>
+      <p><strong>啟發：</strong>流程比技術重要。</p>
+    </div>
+  </section>
+
+  <!-- Slide 7 -->
+  <section>
+    <div class="bg" style="background-image:url('images/music.jpg')"></div>
+    <div class="content">
+      <h2>案例二：孫子的生日歌</h2>
+      <p>問題：不懂樂理，軟體太複雜。</p>
+      <p>解法：點擊加音符、立刻播放。</p>
+      <p class="highlight">入口設計決定命運。</p>
+    </div>
+  </section>
+
+  <!-- Slide 8 -->
+  <section>
+    <div class="bg" style="background-image:url('images/engineering.jpg')"></div>
+    <div class="content">
+      <h2>案例三：工程經驗傳承</h2>
+      <p>50 年經驗留在腦中，年輕人反覆踩坑。</p>
+      <p>解法：壓簧設計輔助，經驗變成檢查清單。</p>
+      <p class="highlight">AI 讓經驗數位化。</p>
+    </div>
+  </section>
+
+  <!-- Slide 9 -->
+  <section>
+    <div class="bg" style="background-image:url('images/insight.jpg')"></div>
+    <div class="content">
+      <h2>核心發現</h2>
+      <p>瓶頸已轉移：</p>
+      <p>從「會不會寫程式」</p>
+      <p class="highlight">到「能不能清楚表達需求」。</p>
+    </div>
+  </section>
+
+  <!-- Slide 10 -->
+  <section>
+    <div class="bg" style="background-image:url('images/collaboration.jpg')"></div>
+    <div class="content">
+      <h2>人機協作的真相</h2>
+      <p>我負責：需求、判斷、責任。</p>
+      <p>AI 負責：實作、細節、速度。</p>
+      <p class="highlight">創造開始普惠化。</p>
+    </div>
+  </section>
+
+  <!-- Slide 11 -->
+  <section>
+    <div class="bg" style="background-image:url('images/end.jpg')"></div>
+    <div class="content">
+      <h2>結語</h2>
+      <p>班門弄斧已畢，盼能拋磚引玉。</p>
+      <p>「趁著白日，我們必須做工。」</p>
+      <p>🙏 謝謝各位</p>
+    </div>
+  </section>
+
+  <div class="hint">← / → 或 空白鍵 切換</div>
+  <div class="footer">HTML5 × GitHub Pages</div>
+  <div class="progress"><span></span></div>
+
+  <script>
+    const slides = document.querySelectorAll('section');
+    const bar = document.querySelector('.progress span');
+    let index = 0;
+
+    function show(i) {
+      slides.forEach(s => s.classList.remove('active'));
+      slides[i].classList.add('active');
+      bar.style.width = ((i + 1) / slides.length * 100) + '%';
+    }
+
+    document.addEventListener('keydown', e => {
+      if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) {
+        index = Math.min(index + 1, slides.length - 1);
+        show(index);
+      }
+      if (['ArrowLeft', 'PageUp'].includes(e.key)) {
+        index = Math.max(index - 1, 0);
+        show(index);
+      }
+    });
+  </script>
+
+</body>
+</html>
