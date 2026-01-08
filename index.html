@@ -1,279 +1,586 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>我與 AI 的故事｜一個老工程師的新探索</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>我與AI的故事 — 弟兄讀書會演示</title>
   <style>
-    :root {
-      --bg-dark: #020617;
-      --bg-mid: #0f172a;
-      --fg: #e5e7eb;
-      --accent: #38bdf8;
-      --accent-2: #22c55e;
-      --muted: #94a3b8;
-    }
-    * { box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-        "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
-      background: radial-gradient(circle at top, #020617, #000);
-      color: var(--fg);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
+      background: #020617;
+      color: white;
       overflow: hidden;
-    }
-
-    /* ---------- Slides ---------- */
-    section {
-      position: relative;
       height: 100vh;
-      padding: 10vh 12vw;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
       display: none;
       overflow: hidden;
-      animation: fadeIn 0.8s ease both;
+      padding: 10vh 10vw;
+      box-sizing: border-box;
     }
-    section.active { display: block; }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    /* ---------- Background Image Layer ---------- */
-    .bg {
-      position: absolute;
-      inset: 0;
-      background-size: cover;
-      background-position: center;
-      filter: brightness(0.35) saturate(1.1) contrast(1.05);
-      transform: scale(1.08);
-      z-index: 0;
-    }
-
-    .bg::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to bottom,
-        rgba(2,6,23,0.6),
-        rgba(2,6,23,0.9)
-      );
-    }
-
-    /* ---------- Content ---------- */
+    .slide.active { display: block; }
+    .bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 0; }
     .content {
       position: relative;
+      z-index: 2;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0;
+    }
+    .text-layer {
+      position: relative;
+      z-index: 3;
+      max-width: 90%;
+      text-shadow: 0 2px 6px rgba(0,0,0,0.7);
+      line-height: 1.6;
+    }
+    .img-container {
+      position: absolute;
+      border-radius: 8px;
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      transition: all 0.4s;
       z-index: 1;
-      max-width: 1100px;
+      opacity: 0.7;
     }
-
-    h1 {
-      font-size: clamp(3rem, 6vw, 4.5rem);
-      margin: 0 0 1rem 0;
-      letter-spacing: -0.02em;
+    /* 第一页封面图小一点 */
+    .slide:first-child .img-container {
+      width: 60%;
+      top: 25%;
+      left: 20%;
     }
-    h2 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      margin-bottom: 1.5rem;
-      color: var(--accent);
-    }
-    p, li {
-      font-size: clamp(1.15rem, 2.2vw, 1.6rem);
-      line-height: 1.7;
-      color: var(--fg);
-    }
-    ul { padding-left: 1.2em; }
-
-    .highlight {
-      color: var(--accent-2);
-      font-weight: 600;
-    }
-
-    /* ---------- Footer & Hint ---------- */
-    .footer, .hint {
+    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0 0 20px; font-weight: 800; text-shadow: 0 4px 12px rgba(0,0,0,0.8); }
+    h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 25px; color: #38bdf8; text-shadow: 0 3px 10px rgba(0,0,0,0.7); }
+    h3 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 20px 0; color: #818cf8; }
+    p, li { font-size: clamp(1.1rem, 2.8vw, 1.4rem); margin: 12px 0; }
+    .highlight { color: #10b981; font-weight: bold; }
+    .controls {
       position: fixed;
-      bottom: 1rem;
-      font-size: 0.85rem;
-      color: var(--muted);
-      letter-spacing: 0.05em;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      z-index: 10;
     }
-    .footer { right: 1.5rem; }
-    .hint { left: 1.5rem; }
-
-    /* ---------- Progress Bar ---------- */
+    .btn {
+      background: rgba(56, 189, 248, 0.8);
+      color: white;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-weight: bold;
+      backdrop-filter: blur(10px);
+    }
+    .btn:hover:not(:disabled) { transform: translateY(-2px); background: rgba(56, 189, 248, 1); }
+    .btn:disabled { opacity: 0.4; }
     .progress {
       position: fixed;
-      bottom: 0;
-      left: 0;
-      height: 4px;
-      width: 100%;
-      background: rgba(255,255,255,0.08);
+      top: 30px;
+      right: 30px;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: bold;
+      z-index: 10;
+      backdrop-filter: blur(5px);
     }
-    .progress span {
-      display: block;
-      height: 100%;
-      width: 0;
-      background: linear-gradient(90deg, var(--accent), var(--accent-2));
-      transition: width 0.4s ease;
+    .slide-video {
+      width: 100%;
+      max-width: 1200px;
+      height: 80vh;
+      border-radius: 8px;
+      box-shadow: 0 0 50px rgba(0,255,255,0.3);
+    }
+    @media (max-width: 768px) {
+      .slide { padding: 8vh 5vw; }
+      .text-layer { max-width: 95%; }
+      .img-container {
+        width: 80% !important;
+        top: 15% !important;
+        left: 10% !important;
+      }
     }
   </style>
 </head>
 <body>
 
-  <!-- Slide 1 -->
-  <section class="active">
-    <div class="bg" style="background-image:url('images/cover-ai.jpg')"></div>
-    <div class="content">
-      <h1>我與 AI 的故事</h1>
+<!-- ========== 第1页：封面 ========== -->
+<div class="slide active">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:60%; top:25%; left:20%;">
+      <img src="images/images0.png" alt="封面">
+    </div>
+    <div class="text-layer">
+      <h1>我與AI的故事</h1>
       <h2>一個老工程師的新探索</h2>
       <p>📅 1月11日｜西部時間 下午5點</p>
       <p>🔗 Zoom ID: 832 2328 9056｜密碼 77777</p>
       <p>👤 John弟兄 主領</p>
       <p class="highlight">矽谷生命河靈糧堂｜弟兄讀書會</p>
+      <audio controls src="audio/灵火如风.mp3" style="margin-top:20px; width: 80%; max-width: 600px;"></audio>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 2 -->
-  <section>
-    <div class="bg" style="background-image:url('images/audience.jpg')"></div>
-    <div class="content">
-      <h2>開場：班門弄斧</h2>
-      <ul>
-        <li>在座各位：<span class="highlight">做 AI 的專業人士</span></li>
-        <li>我自己：<span class="highlight">用 AI 的老工程師</span></li>
-      </ul>
+<!-- ========== 第2页：班門弄斧 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:15%; left:12%;">
+      <img src="images/images1.png" alt="班門弄斧">
+    </div>
+    <div class="text-layer">
+      <h2>班門弄斧</h2>
+      <p>各位：做 AI 的專業人士</p>
+      <p>我：用 AI 的老工程師</p>
       <p>這是一場拋磚引玉的分享：<br/>磚是我的體驗，玉是對產品與設計的反思。</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 3 -->
-  <section>
-    <div class="bg" style="background-image:url('images/engineer.jpg')"></div>
-    <div class="content">
+<!-- ========== 第3页：我的背景 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:10%; left:10%;">
+      <img src="images/images2.png" alt="我的背景">
+    </div>
+    <div class="text-layer">
       <h2>我的背景</h2>
-      <ul>
-        <li>70+ 歲，老工程師</li>
-        <li>幾個月 AI 實驗</li>
-        <li>完成約 30 個小應用</li>
-        <li>全部來自真實需求</li>
-      </ul>
+      <p>• 70+ 歲，老工程師</p>
+      <p>• 幾個月 AI 實驗</p>
+      <p>• 完成約 30 個小應用</p>
+      <p>• 全部來自真實需求</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 4 -->
-  <section>
-    <div class="bg" style="background-image:url('images/idea.jpg')"></div>
-    <div class="content">
-      <h2>真正的主題</h2>
-      <p><strong>不是</strong>「老人學會新技術」</p>
-      <p><strong>而是</strong>「老工程師找到新工具」</p>
-      <p class="highlight">技術門檻下降，判斷與經驗更重要。</p>
+<!-- ========== 第4页：AI與現實生活 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%;">
+      <img src="images/images3.png" alt="AI與現實生活">
     </div>
-  </section>
-
-  <!-- Slide 5 -->
-  <section>
-    <div class="bg" style="background-image:url('images/life.jpg')"></div>
-    <div class="content">
+    <div class="text-layer">
       <h2>AI 與現實生活</h2>
       <p>30 個應用，沒有一個為了炫技。</p>
       <p><strong>唯一的問題：</strong>事情能不能更簡單？</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 6 -->
-  <section>
-    <div class="bg" style="background-image:url('images/zoom.jpg')"></div>
-    <div class="content">
+<!-- ========== 第5页：案例一：Zoom聚會 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:5%; left:5%;">
+      <img src="images/images4.png" alt="Zoom聚會">
+    </div>
+    <div class="text-layer">
       <h2>案例一：Zoom 聚會</h2>
       <p>問題：主持人混亂、權限難交接。</p>
       <p>解法：Zoom 交接器 —— <span class="highlight">一鍵交接</span>。</p>
       <p><strong>啟發：</strong>流程比技術重要。</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 7 -->
-  <section>
-    <div class="bg" style="background-image:url('images/music.jpg')"></div>
-    <div class="content">
+<!-- ========== 第6页：案例二：孫子生日歌 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:90%; top:0%; left:2%;">
+      <img src="images/images5.png" alt="孫子生日歌">
+    </div>
+    <div class="text-layer">
       <h2>案例二：孫子的生日歌</h2>
       <p>問題：不懂樂理，軟體太複雜。</p>
       <p>解法：點擊加音符、立刻播放。</p>
       <p class="highlight">入口設計決定命運。</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 8 -->
-  <section>
-    <div class="bg" style="background-image:url('images/engineering.jpg')"></div>
-    <div class="content">
+<!-- ========== 第7页：案例三：工程經驗傳承 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:20%; left:12%;">
+      <img src="images/images6.png" alt="工程經驗傳承">
+    </div>
+    <div class="text-layer">
       <h2>案例三：工程經驗傳承</h2>
       <p>50 年經驗留在腦中，年輕人反覆踩坑。</p>
       <p>解法：壓簧設計輔助，經驗變成檢查清單。</p>
       <p class="highlight">AI 讓經驗數位化。</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 9 -->
-  <section>
-    <div class="bg" style="background-image:url('images/insight.jpg')"></div>
-    <div class="content">
+<!-- ========== 第8页：核心發現 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:15%; left:10%;">
+      <img src="images/images7.png" alt="核心發現">
+    </div>
+    <div class="text-layer">
       <h2>核心發現</h2>
       <p>瓶頸已轉移：</p>
       <p>從「會不會寫程式」</p>
       <p class="highlight">到「能不能清楚表達需求」。</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <!-- Slide 10 -->
-  <section>
-    <div class="bg" style="background-image:url('images/collaboration.jpg')"></div>
-    <div class="content">
-      <h2>人機協作的真相</h2>
-      <p>我負責：需求、判斷、責任。</p>
-      <p>AI 負責：實作、細節、速度。</p>
-      <p class="highlight">創造開始普惠化。</p>
+<!-- ========== 第9页：人機協作過程 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:10%; left:7%;">
+      <img src="images/images8.png" alt="人機協作">
     </div>
-  </section>
+    <div class="text-layer">
+      <h2>人機協作的過程</h2>
+      <p><strong>需求描述：</strong></p>
+      <p>「我需要一個在瀏覽器運行的工具：<br>
+         1. 顯示簡單五線譜<br>
+         2. 滑鼠點擊添加音符<br>
+         3. 立刻播放旋律<br>
+         4. 不需要懂樂理」</p>
+    </div>
+  </div>
+</div>
 
-  <!-- Slide 11 -->
-  <section>
-    <div class="bg" style="background-image:url('images/end.jpg')"></div>
-    <div class="content">
+<!-- ========== 第10页：迭代過程 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%;">
+      <img src="images/images9.png" alt="迭代過程">
+    </div>
+    <div class="text-layer">
+      <h2>迭代過程</h2>
+      <p><strong>問題1：</strong>C4音符位置不對 → 調整計算邏輯</p>
+      <p><strong>問題2：</strong>鋼琴鍵間距不均 → 優化佈局</p>
+      <p><strong>問題3：</strong>節拍邏輯bug → 重新計算時值</p>
+      <p>3–4輪迭代 → 得到可用工具 ✓</p>
+      <p class="highlight">不需要知道「怎麼修」，只要能說清「哪裡不對」</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第11页：協作模式 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:90%; top:5%; left:5%;">
+      <img src="images/images10.png" alt="協作模式">
+    </div>
+    <div class="text-layer">
+      <h2>協作模式</h2>
+      <p><strong>🤖 AI的工作：</strong>生成代碼、處理細節、實現功能</p>
+      <p><strong>👨‍💼 我的工作：</strong>定義需求、發現問題、判斷結果</p>
+      <p class="highlight">這種分工，讓「創造」變得普惠</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第12页：互動討論 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:20%; left:12%;">
+      <img src="images/images11.png" alt="互動討論">
+    </div>
+    <div class="text-layer">
+      <h2>互動討論</h2>
+      <p style="font-size:1.8em;">當AI被問：<br><span class="highlight">「你到底是什麼？」</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第13页：眾AI論道 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:15%; left:10%;">
+      <img src="images/images12.png" alt="眾AI論道">
+    </div>
+    <div class="text-layer">
+      <h2>眾AI論道：我是誰？</h2>
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:15px;width:90%;max-width:1000px;margin-top:20px;">
+        <div style="background:rgba(0,0,0,0.5);padding:15px;border-radius:8px;text-align:left;">
+          <div style="color:#fbbf24;font-weight:bold;">🤖 ChatGPT</div>
+          <p>[現場展示或預先準備回答內容]</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.5);padding:15px;border-radius:8px;text-align:left;">
+          <div style="color:#fbbf24;font-weight:bold;">🤖 Claude</div>
+          <p>[現場展示或預先準備回答內容]</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.5);padding:15px;border-radius:8px;text-align:left;">
+          <div style="color:#fbbf24;font-weight:bold;">🤖 Gemini</div>
+          <p>[現場展示或預先準備回答內容]</p>
+        </div>
+        <div style="background:rgba(0,0,0,0.5);padding:15px;border-radius:8px;text-align:left;">
+          <div style="color:#fbbf24;font-weight:bold;">🤖 Grok</div>
+          <p>[現場展示或預先準備回答內容]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第14页：7個AI，7種回答 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:10%; left:7%;">
+      <img src="images/images13.png" alt="7種回答">
+    </div>
+    <div class="text-layer">
+      <h2>7個AI，7種回答</h2>
+      <p>觀察：</p>
+      <p>• 誰最謙卑？誰最誠實？</p>
+      <p>• 誰最技術化？誰最通俗？</p>
+      <p>• <span class="highlight">誰的回答，5歲小孩都能懂？</span></p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第15页：如果是你來回答 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%;">
+      <img src="images/images14.png" alt="如果是你">
+    </div>
+    <div class="text-layer">
+      <h2>如果是你來回答</h2>
+      <p>向不同的人，你會怎麼解釋「AI是什麼」：</p>
+      <p>• 向你的孩子？</p>
+      <p>• 向你的父母？</p>
+      <p>• 向從未用過電腦的人？</p>
+      <p>• 向質疑AI、害怕AI的人？</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第16页：我的理解 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:95%; top:0%; left:2%;">
+      <img src="images/images15.png" alt="我的理解">
+    </div>
+    <div class="text-layer">
+      <h2>我的理解（用戶視角）</h2>
+      <p>AI就是一個學習能力超強的<strong>學徒</strong>：</p>
+      <p>• 看過海量例子 → 總結規律 → 模仿做事</p>
+      <p>• 不會創新、不會判斷價值、不會負責</p>
+      <p class="highlight">所以AI是工具，但不是神</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第17页：給開發者的思考 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:15%; left:10%;">
+      <img src="images/images16.png" alt="給開發者">
+    </div>
+    <div class="text-layer">
+      <h2>給開發者的思考</h2>
+      <p><span class="highlight">你們手中的，不僅是技術，更是責任</span></p>
+      <p>• <strong>可解釋性</strong>：AI連自己都解釋不清，用戶怎麼信任？</p>
+      <p>• <strong>可用性</strong>：技術再強，用不了也只是實驗室成果</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第18页：結語 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:10%; left:7%;">
+      <img src="images/images17.png" alt="結語">
+    </div>
+    <div class="text-layer">
       <h2>結語</h2>
-      <p>班門弄斧已畢，盼能拋磚引玉。</p>
+      <p>「班門弄斧」做完了，希望能「拋磚引玉」</p>
+      <p><strong>我的「磚」</strong>：老工程師的真實體驗、30個實際應用</p>
+      <p><strong>期待的「玉」</strong>：對產品設計的新思考、對AI普惠化的新探索</p>
       <p>「趁著白日，我們必須做工。」</p>
-      <p>🙏 謝謝各位</p>
+      <p class="highlight">🙏 謝謝各位！</p>
     </div>
-  </section>
+  </div>
+</div>
 
-  <div class="hint">← / → 或 空白鍵 切換</div>
-  <div class="footer">HTML5 × GitHub Pages</div>
-  <div class="progress"><span></span></div>
+<!-- ========== 第19页：Zoom交接細節 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:65%; top:30%; left:20%;">
+      <img src="images/images18.png" alt="Zoom交接">
+    </div>
+    <div class="text-layer">
+      <h2>補充：Zoom 交接器細節</h2>
+      <p>• 一鍵切換主持人</p>
+      <p>• 自動記錄會議要點</p>
+      <p>• 降低技術門檻</p>
+    </div>
+  </div>
+</div>
 
-  <script>
-    const slides = document.querySelectorAll('section');
-    const bar = document.querySelector('.progress span');
-    let index = 0;
+<!-- ========== 第20页：音樂創作平台 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:20%; left:10%;">
+      <img src="images/images19.png" alt="音樂創作">
+    </div>
+    <div class="text-layer">
+      <h2>補充：音樂創作平台</h2>
+      <p>• 點擊添加音符</p>
+      <p>• 即時播放試聽</p>
+      <p>• 5歲孩子也能用</p>
+    </div>
+  </div>
+</div>
 
-    function show(i) {
-      slides.forEach(s => s.classList.remove('active'));
-      slides[i].classList.add('active');
-      bar.style.width = ((i + 1) / slides.length * 100) + '%';
-    }
+<!-- ========== 第21页：工程經驗數位化 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:10%; left:5%;">
+      <img src="images/images20.png" alt="工程經驗">
+    </div>
+    <div class="text-layer">
+      <h2>補充：工程經驗數位化</h2>
+      <p>• 壓簧設計檢查清單</p>
+      <p>• 自動提醒常見錯誤</p>
+      <p>• 經驗不再遺失</p>
+    </div>
+  </div>
+</div>
 
-    document.addEventListener('keydown', e => {
-      if (['ArrowRight', ' ', 'PageDown'].includes(e.key)) {
-        index = Math.min(index + 1, slides.length - 1);
-        show(index);
-      }
-      if (['ArrowLeft', 'PageUp'].includes(e.key)) {
-        index = Math.max(index - 1, 0);
-        show(index);
-      }
-    });
-  </script>
+<!-- ========== 第22页：總結 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%;">
+      <img src="images/images21.png" alt="總結">
+    </div>
+    <div class="text-layer">
+      <h2>總結：AI 的最大價值</h2>
+      <p class="highlight">不是取代人類，而是讓「創造」變得普惠</p>
+      <p>人類負責：需求、判斷、責任</p>
+      <p>AI負責：實作、細節、速度</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第23页：都在做没人问特写 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:20%; left:12%;">
+      <img src="images/slides17.png" alt="都在做">
+    </div>
+    <div class="text-layer">
+      <h2>都在做，沒人在問</h2>
+      <p>三個叉：問需求、說別做、懂停下</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第24页：FAQ测出极限 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%;">
+      <img src="images/slides12.png" alt="测极限">
+    </div>
+    <div class="text-layer">
+      <h2>測出了極限，也映出了我們</h2>
+      <p>AI 是鏡子，照出我們的需求與局限</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第25页：结语 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:15%; left:10%;">
+      <img src="images/slides23.png" alt="结语">
+    </div>
+    <div class="text-layer">
+      <h2>DELETE MEMORY - 人類的剎車片</h2>
+      <p>記憶是累贅，忘卻是智慧</p>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第26页：破茧而出视频 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <video class="slide-video" autoplay muted playsinline loop>
+      <source src="images/slides18.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+
+<!-- ========== 控制元件 ========== -->
+<div class="progress"><span id="counter">1 / 26</span></div>
+<div class="controls">
+  <button class="btn" id="prev" disabled>⬅ 上一頁</button>
+  <button class="btn" id="next">下一頁 ➡</button>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  let cur = 0;
+  const total = slides.length;
+
+  function show(n) {
+    slides.forEach(s => s.classList.remove('active'));
+    cur = Math.max(0, Math.min(n, total - 1));
+    slides[cur].classList.add('active');
+    document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
+    document.getElementById('prev').disabled = (cur === 0);
+    document.getElementById('next').disabled = (cur === total - 1);
+  }
+
+  document.getElementById('next').onclick = () => show(cur + 1);
+  document.getElementById('prev').onclick = () => show(cur - 1);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === ' ') show(cur + 1);
+    else if (e.key === 'ArrowLeft') show(cur - 1);
+    else if (e.key === 'Home') show(0);
+    else if (e.key === 'End') show(total - 1);
+  });
+
+  show(0);
+</script>
 
 </body>
 </html>
