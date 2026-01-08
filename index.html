@@ -50,6 +50,7 @@
       transition: all 0.4s;
       z-index: 1;
       opacity: 0.7;
+      filter: brightness(0.6); /* 所有图片统一降低亮度 */
     }
     /* 第一页封面图小一点 */
     .slide:first-child .img-container {
@@ -57,11 +58,39 @@
       top: 25%;
       left: 20%;
     }
-    h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); margin: 0 0 20px; font-weight: 800; text-shadow: 0 4px 12px rgba(0,0,0,0.8); }
-    h2 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 0 0 25px; color: #38bdf8; text-shadow: 0 3px 10px rgba(0,0,0,0.7); }
-    h3 { font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 20px 0; color: #818cf8; }
-    p, li { font-size: clamp(1.1rem, 2.8vw, 1.4rem); margin: 12px 0; }
-    .highlight { color: #10b981; font-weight: bold; }
+    h1 { 
+      font-size: 3.8rem; 
+      margin: 0 0 20px; 
+      font-weight: 800; 
+      color: #38bdf8; /* 标题用深蓝 */
+      text-shadow: 0 2px 8px rgba(0,0,0,0.7); 
+    }
+    h2 { 
+      font-size: 2.8rem; 
+      margin: 0 0 25px; 
+      color: #38bdf8; /* 标题用深蓝 */
+      text-shadow: 0 2px 6px rgba(0,0,0,0.6); 
+    }
+    h3 { 
+      font-size: 2.0rem; 
+      margin: 20px 0; 
+      color: #818cf8; 
+      font-weight: 600;
+    }
+    p, li { 
+      font-size: 1.6rem; 
+      line-height: 1.6; 
+      margin: 15px 0; 
+      color: #93c5fd; /* 正文用浅蓝 */
+      text-shadow: 0 1px 4px rgba(0,0,0,0.5); 
+    }
+    .highlight { 
+      color: #10b981; 
+      font-weight: bold; 
+      background: rgba(16, 185, 128, 0.2); 
+      padding: 2px 6px; 
+      border-radius: 4px;
+    }
     .controls {
       position: fixed;
       bottom: 30px;
@@ -76,7 +105,7 @@
       color: white;
       border: none;
       padding: 14px 32px;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       border-radius: 50px;
       cursor: pointer;
       font-weight: bold;
@@ -95,6 +124,7 @@
       font-weight: bold;
       z-index: 10;
       backdrop-filter: blur(5px);
+      font-size: 1.4rem;
     }
     .slide-video {
       width: 100%;
