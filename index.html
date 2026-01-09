@@ -20,7 +20,7 @@
       height: 100%;
       display: none;
       overflow: hidden;
-      padding: 6vh 8vw; /* 减少上下内边距 */
+      padding: 6vh 8vw;
       box-sizing: border-box;
     }
     .slide.active { display: block; }
@@ -40,7 +40,7 @@
       height: 100%;
       display: flex;
       flex-direction: column;
-      justify-content: space-between; /* 改为两端对齐 */
+      justify-content: space-between;
       align-items: center;
       text-align: center;
       padding: 2vh 0;
@@ -51,10 +51,10 @@
       max-width: 90%;
       text-shadow: 0 4px 12px rgba(0,0,0,0.9);
       line-height: 1.5;
-      background: rgba(0, 0, 0, 0.25); /* 进一步减少背景不透明度 */
+      background: rgba(0, 0, 0, 0.25);
       padding: 40px 50px;
       border-radius: 20px;
-      backdrop-filter: blur(1px); /* 减少模糊效果 */
+      backdrop-filter: blur(1px);
       margin-top: 5vh;
     }
     .img-container {
@@ -73,23 +73,23 @@
     /* ========== 首页专用样式 ========== */
     .slide:first-child .img-container { 
       width: 45%;
-      top: 20%; /* 上移 */
+      top: 20%;
       left: 27.5%;
-      opacity: 0.85; /* 提高透明度 */
+      opacity: 0.85;
     }
     
     .slide:first-child .text-layer {
-      margin-top: 15vh; /* 文本区域上移 */
-      background: rgba(0, 0, 0, 0.35); /* 首页背景稍深一点 */
+      margin-top: 15vh;
+      background: rgba(0, 0, 0, 0.35);
     }
     
     .title-main {
       font-size: 5.5rem !important;
-      margin: 0 0 20px !important; /* 减少下边距 */
+      margin: 0 0 20px !important;
       font-weight: 900 !important; 
       color: #38bdf8;
       text-shadow: 0 4px 20px rgba(0,0,0,0.9) !important;
-      letter-spacing: 3px; /* 增加字间距 */
+      letter-spacing: 3px;
     }
     
     .title-sub {
@@ -162,7 +162,7 @@
       text-shadow: none !important;
     }
     
-    /* ========== 底部控制栏（简洁版）========== */
+    /* ========== 底部控制栏 ========== */
     .controls-bottom {
       position: absolute;
       bottom: 10px;
@@ -178,13 +178,13 @@
       background: rgba(56, 189, 248, 0.8);
       color: white;
       border: none;
-      padding: 8px 16px; /* 减小按钮尺寸 */
+      padding: 8px 16px;
       font-size: 1rem !important;
       border-radius: 50px;
       cursor: pointer;
       font-weight: 600;
       backdrop-filter: blur(8px);
-      min-width: 100px; /* 减小最小宽度 */
+      min-width: 100px;
       box-shadow: 0 4px 15px rgba(56, 189, 248, 0.3);
       transition: all 0.2s;
     }
@@ -201,7 +201,7 @@
       transform: none !important;
     }
     
-    /* ========== 音频控件（简洁版）========== */
+    /* ========== 音频控件 ========== */
     .audio-mini {
       position: absolute;
       bottom: 30px;
@@ -215,8 +215,8 @@
     }
     
     .audio-mini audio {
-      width: 200px; /* 减小宽度 */
-      height: 40px; /* 减小高度 */
+      width: 200px;
+      height: 40px;
     }
     
     .audio-mini .audio-label {
@@ -300,11 +300,30 @@
       animation: fadeIn 0.6s ease-out;
     }
     
-    /* 图片透明度设置 - 简化 */
+    /* 图片透明度设置 */
     .slide:not(:first-child) .img-container { opacity: 0.8; }
-    .slide:nth-child(13) .img-container { opacity: 0.7; }
-    .slide:nth-child(26) .img-container { opacity: 1; }
+    .slide:nth-child(14) .img-container { opacity: 0.7; }
+    .slide:nth-child(29) .img-container { opacity: 1; }
     
+    /* 第18页专用样式（AI协同作战法） */
+    .slide:nth-child(18) .text-layer {
+      max-width: 95%;
+      padding: 35px 45px;
+    }
+    
+    /* 第19页专用样式（互动提问） */
+    .slide:nth-child(19) .text-layer {
+      max-width: 95%;
+      padding: 40px 50px;
+    }
+    
+    /* 第20页专用样式（掉坑里了） */
+    .slide:nth-child(20) .text-layer {
+      max-width: 95%;
+      padding: 40px 50px;
+    }
+    
+    /* 响应式设计 */
     @media (max-width: 1600px) {
       .title-main { font-size: 4.8rem !important; }
       .title-sub { font-size: 3.8rem !important; }
@@ -332,6 +351,23 @@
       }
       .audio-mini audio {
         width: 180px;
+      }
+      
+      /* 第18-20页响应式 */
+      .slide:nth-child(18) .text-layer > div > div,
+      .slide:nth-child(20) .text-layer > div > div {
+        grid-template-columns: 1fr !important;
+      }
+      
+      .slide:nth-child(18) h2,
+      .slide:nth-child(19) h2,
+      .slide:nth-child(20) h2 {
+        font-size: 3.8rem !important;
+      }
+      
+      .slide:nth-child(19) .text-layer > div:first-child p,
+      .slide:nth-child(20) ul li {
+        font-size: 1.8rem !important;
       }
     }
     
@@ -395,48 +431,65 @@
       .audio-mini .audio-label {
         font-size: 1rem !important;
       }
+      
+      /* 第18-20页移动端响应式 */
+      .slide:nth-child(18) h2,
+      .slide:nth-child(19) h2,
+      .slide:nth-child(20) h2 {
+        font-size: 3.2rem !important;
+      }
+      
+      .slide:nth-child(18) h3,
+      .slide:nth-child(20) h3 {
+        font-size: 2.2rem !important;
+      }
+      
+      .slide:nth-child(18) p,
+      .slide:nth-child(20) p {
+        font-size: 1.6rem !important;
+      }
+      
+      .slide:nth-child(19) .text-layer > div:first-child p {
+        font-size: 3.5rem !important;
+      }
+      
+      .slide:nth-child(20) ul li {
+        font-size: 1.6rem !important;
+      }
     }
   </style>
 </head>
 <body>
 
+<!-- 页码显示 -->
+<div class="progress"><span id="counter">1 / 29</span></div>
 
-
-<!-- 頁碼顯示 -->
-<div class="progress"><span id="counter">1 / 26</span></div>
-
-<!-- ========== 第1頁：封面 ========== -->
+<!-- ========== 第1页：封面 ========== -->
 <div class="slide active">
   <div class="bg"></div>
   <div class="content">
-    <!-- 圖片 -->
     <div class="img-container">
       <img src="images/images0.png" alt="封面">
     </div>
     
-    <!-- 主內容區域 -->
     <div class="text-layer">
       <div class="title-main">我與AI的故事</div>
       <div class="title-sub">一個老頑童的新探索</div>
       
-      <!-- 簡潔的會議信息 -->
       <div class="meeting-info">
         <div>📅 1月11日 | 西部時間 下午5點</div>
         <div>🔗 Zoom ID: 832 2328 9056 | 密碼 77777</div>
         <div style="margin-top: 15px;">👤 John弟兄 主領</div>
       </div>
       
-      <!-- 教會信息 -->
       <div class="church-info">矽谷生命河靈糧堂 | 弟兄讀書會</div>
     </div>
     
-    <!-- 底部控制欄 -->
     <div class="controls-bottom">
-      <button class="btn" id="prev" disabled>⬅ 上一頁</button>
-      <button class="btn" id="next">下一頁 ➡</button>
+      <button class="btn" id="prev1" disabled>⬅ 上一頁</button>
+      <button class="btn" id="next1">下一頁 ➡</button>
     </div>
     
-    <!-- 小型音頻控件 -->
     <div class="audio-mini">
       <div class="audio-label">🎵 靈火如風</div>
       <audio controls>
@@ -448,7 +501,7 @@
   </div>
 </div>
 
-<!-- ========== 第2頁：班門弄斧 ========== -->
+<!-- ========== 第2页：班門弄斧 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -469,7 +522,7 @@
   </div>
 </div>
 
-<!-- ========== 第3頁：我的背景 ========== -->
+<!-- ========== 第3页：我的背景 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -487,10 +540,10 @@
       <button class="btn" id="prev3">⬅ 上一頁</button>
       <button class="btn" id="next3">下一頁 ➡</button>
     </div>
-</div>
+  </div>
 </div>
 
-<!-- ========== 第4頁：AI與現實生活 ========== -->
+<!-- ========== 第4页：AI與現實生活 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -509,7 +562,7 @@
   </div>
 </div>
 
-<!-- ========== 第5頁：案例一：Zoom聚會 ========== -->
+<!-- ========== 第5页：案例一：Zoom聚會 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -529,7 +582,7 @@
   </div>
 </div>
 
-<!-- ========== 第6頁：案例二：孫子生日歌 ========== -->
+<!-- ========== 第6页：案例二：孫子生日歌 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -549,7 +602,7 @@
   </div>
 </div>
 
-<!-- ========== 第7頁：案例三：工程經驗傳承 ========== -->
+<!-- ========== 第7页：案例三：工程經驗傳承 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -569,7 +622,7 @@
   </div>
 </div>
 
-<!-- ========== 第8頁：核心發現 ========== -->
+<!-- ========== 第8页：核心發現 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -589,7 +642,7 @@
   </div>
 </div>
 
-<!-- ========== 第9頁：人機協作過程 ========== -->
+<!-- ========== 第9页：人機協作過程 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -611,7 +664,7 @@
   </div>
 </div>
 
-<!-- ========== 第10頁：迭代過程 ========== -->
+<!-- ========== 第10页：迭代過程 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -632,7 +685,7 @@
   </div>
 </div>
 
-<!-- ========== 第11頁：協作模式 ========== -->
+<!-- ========== 第11页：協作模式 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -652,7 +705,7 @@
   </div>
 </div>
 
-<!-- ========== 第12頁：互動討論 ========== -->
+<!-- ========== 第12页：互動討論 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -671,8 +724,8 @@
   </div>
 </div>
 
-<!-- ========== 第13页：主流AI模型比较（小字号版）========== -->
-<div class="slide" id="slide13">
+<!-- ========== 第13页：主流AI模型比较 ========== -->
+<div class="slide">
   <div class="bg"></div>
   <div class="content">
     <div class="img-container" style="width:95%; top:10%; left:7.5%;">
@@ -691,61 +744,51 @@
             </tr>
           </thead>
           <tbody>
-            <!-- 第1行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">ChatGPT</td>
               <td style="padding: 10px;">對話式AI，上下文理解強</td>
               <td style="padding: 10px;">寫作、編程、對話</td>
             </tr>
-            <!-- 第2行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Claude</td>
               <td style="padding: 10px;">注重安全、倫理，輸出更謹慎</td>
               <td style="padding: 10px;">專業寫作、分析</td>
             </tr>
-            <!-- 第3行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Gemini</td>
-              <td style="padding: 10px;">多模態處理（文本、圖像等））</td>
+              <td style="padding: 10px;">多模態處理（文本、圖像等）</td>
               <td style="padding: 10px;">多媒體內容分析</td>
             </tr>
-            <!-- 第4行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Grok</td>
               <td style="padding: 10px;">時信息處理，擅長最新資訊</td>
               <td style="padding: 10px;">新聞、趨勢分析</td>
             </tr>
-            <!-- 第5行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Qwen<br>（通義千問）</td>
               <td style="padding: 10px;">綜合性能領先，開源生態完善</td>
               <td style="padding: 10px;">各種場景</td>
             </tr>
-            <!-- 第6行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">DeepSeek</td>
               <td style="padding: 10px;">擅長代碼和數學推理</td>
               <td style="padding: 10px;">科研、複雜問題解決</td>
             </tr>
-            <!-- 第7行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">智谱清言<br>（GLM）</td>
               <td style="padding: 10px;">強調知識嚴謹和安全</td>
               <td style="padding: 10px;">專業寫作、知識問答</td>
             </tr>
-            <!-- 第8行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Copilot</td>
               <td style="padding: 10px;">AI編程助手，代碼補全和建議</td>
               <td style="padding: 10px;">編程開發</td>
             </tr>
-            <!-- 第9行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">Perplexity</td>
               <td style="padding: 10px;">AI搜索工具，信息整合和問答</td>
               <td style="padding: 10px;">信息檢索、問答</td>
             </tr>
-            <!-- 第10行 -->
             <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
               <td style="padding: 10px; color: #fbbf24; font-weight: bold; font-size: 1.7rem !important;">LLaMA 3</td>
               <td style="padding: 10px;">開源模型性能標杆，多語言能力提升</td>
@@ -756,7 +799,7 @@
         
         <div style="margin-top: 15px; font-size: 1.4rem !important; color: #94a3b8; text-align: left; padding: 10px 0;">
           <p>💡 <strong>觀察：</strong>每個AI都有自己獨特的"性格"和專長</p>
-          <p>🎯 <strong>建議：</strong>根根據具體需求選擇合適的工具</p>
+          <p>🎯 <strong>建議：</strong>根據具體需求選擇合適的工具</p>
           <p style="margin-top: 10px; color: #60a5fa; font-size: 1.3rem !important;">
             （表格內容較多，可在Zoom中放大查看）
           </p>
@@ -769,56 +812,6 @@
     </div>
   </div>
 </div>
-
-<style>
-  /* 第13页专用样式 */
-  #slide13 .text-layer {
-    font-size: 1.6rem !important;
-  }
-  
-  #slide13 h2 {
-    font-size: 4rem !important;
-  }
-  
-  #slide13 table {
-    font-size: 1.6rem !important;
-  }
-  
-  #slide13 th,
-  #slide13 td {
-    padding: 10px 8px !important;
-  }
-  
-  /* 响应式调整 */
-  @media (max-width: 1200px) {
-    #slide13 table {
-      font-size: 1.4rem !important;
-    }
-    
-    #slide13 h2 {
-      font-size: 3.5rem !important;
-    }
-  }
-  
-  @media (max-width: 768px) {
-    #slide13 .text-layer {
-      padding: 20px 15px !important;
-    }
-    
-    #slide13 table {
-      font-size: 1.2rem !important;
-    }
-    
-    #slide13 h2 {
-      font-size: 3rem !important;
-    }
-    
-    #slide13 th,
-    #slide13 td {
-      padding: 8px 6px !important;
-    }
-  }
-</style>
 
 <!-- ========== 第14页：7個AI，7種回答 ========== -->
 <div class="slide">
@@ -894,7 +887,7 @@
     <div class="text-layer">
       <h2>給開發者的思考</h2>
       <p class="highlight zoom-xlarge">你們手中，不僅是技術，更是責任</p>
-      <p class="zoom-large">• <strong>可解釋性</strong>：自己都无法解釋，用戶怎麼信？</p>
+      <p class="zoom-large">• <strong>可解釋性</strong>：自己也无法解釋，用戶怎麼信？</p>
       <p class="zoom-large">• <strong>可用性</strong>：不能用再強，也只是實驗室成果</p>
     </div>
     <div class="controls-bottom">
@@ -904,19 +897,103 @@
   </div>
 </div>
 
-<!-- ========== 第18页：結語 ========== -->
+<!-- ========== 第18页：我的AI协同作战法 ========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
-    <div class="img-container" style="width:85%; top:10%; left:7.5%;">
-      <img src="images/images17.png" alt="結語">
+    <div class="img-container" style="width:75%; top:5%; left:12.5%; opacity:0.7;">
+      <img src="images/images22.png" alt="AI协同">
     </div>
-    <div class="text-layer">
-      <h2>結語</h2>
-      <p>「班門弄斧」磚搬完了，希望能「拋磚引玉」</p>
-      <p class="zoom-large">我的「磚」：老頑童的使用經歷</p>
-      <p class="zoom-large">你的「玉」：新思考、對AI普惠化的新探索</p>
-            <p class="highlight zoom-xlarge">🙏 謝謝各位！</p>
+    <div class="text-layer" style="max-width: 95%; padding: 35px 45px;">
+      <h2 style="font-size: 4.2rem !important; margin-bottom: 25px !important; color: #10b981 !important;">我的AI协同作战法</h2>
+      
+      <div style="background: rgba(251, 191, 36, 0.2); padding: 25px; border-radius: 15px; border: 3px solid #fbbf24; margin-bottom: 25px;">
+        <p style="font-size: 2.2rem !important; margin: 0 !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important;">
+          ⚡ 核心理念：我不是一件事只麻烦一个AI的人！
+        </p>
+      </div>
+      
+      <div style="background: rgba(16, 185, 128, 0.15); padding: 30px; border-radius: 12px; border: 2px solid #10b981; margin-bottom: 25px;">
+        <h3 style="color: #10b981 !important; font-size: 2.6rem !important; margin: 0 0 20px 0 !important;">🎵 经典案例：和声训练系统</h3>
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+          <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
+            <p style="font-size: 1.9rem !important; margin: 5px 0 !important;"><strong style="color: #38bdf8;">Claude（你）</strong></p>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; color: #94a3b8 !important;">负责整体架构设计、HTML/JS代码框架</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
+            <p style="font-size: 1.9rem !important; margin: 5px 0 !important;"><strong style="color: #fbbf24;">ChatGPT</strong></p>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; color: #94a3b8 !important;">音乐理论算法、和弦进行逻辑</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
+            <p style="font-size: 1.9rem !important; margin: 5px 0 !important;"><strong style="color: #8b5cf6;">Qwen（通义千问）</strong></p>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; color: #94a3b8 !important;">曲线拟合算法、音准检测优化</p>
+          </div>
+          <div style="background: rgba(0,0,0,0.4); padding: 20px; border-radius: 10px;">
+            <p style="font-size: 1.9rem !important; margin: 5px 0 !important;"><strong style="color: #ec4899;">DeepSeek</strong></p>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; color: #94a3b8 !important;">数学推理、频率计算验证</p>
+          </div>
+        </div>
+        <p style="font-size: 1.8rem !important; margin-top: 20px !important; text-align: center; color: #10b981 !important;">
+          💡 <strong>四个AI，各司其职，联手完成复杂项目！</strong>
+        </p>
+      </div>
+      
+      <div style="margin-top: 25px;">
+        <h3 style="color: #38bdf8 !important; font-size: 2.4rem !important; margin: 0 0 20px 0 !important; text-align: center;">为什么要「多AI协同」？</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+          <div style="background: rgba(56, 189, 248, 0.15); padding: 20px; border-radius: 10px; border: 2px solid #38bdf8;">
+            <h4 style="color: #38bdf8 !important; font-size: 2rem !important; margin: 0 0 10px 0 !important; text-align: center;">🎯 取长补短</h4>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; text-align: center; line-height: 1.5 !important;">
+              每个AI擅长不同领域<br>组合起来威力更强
+            </p>
+          </div>
+          <div style="background: rgba(251, 191, 36, 0.15); padding: 20px; border-radius: 10px; border: 2px solid #fbbf24;">
+            <h4 style="color: #fbbf24 !important; font-size: 2rem !important; margin: 0 0 10px 0 !important; text-align: center;">🔍 交叉验证</h4>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; text-align: center; line-height: 1.5 !important;">
+              一个AI给的答案<br>让另一个AI验证
+            </p>
+          </div>
+          <div style="background: rgba(139, 92, 246, 0.15); padding: 20px; border-radius: 10px; border: 2px solid #8b5cf6;">
+            <h4 style="color: #8b5cf6 !important; font-size: 2rem !important; margin: 0 0 10px 0 !important; text-align: center;">💡 思路互补</h4>
+            <p style="font-size: 1.6rem !important; margin: 5px 0 !important; text-align: center; line-height: 1.5 !important;">
+              一个AI卡住了<br>换另一个可能有新思路
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 25px; background: rgba(0,0,0,0.6); padding: 25px; border-radius: 12px; border: 2px solid rgba(16, 185, 128, 0.5);">
+        <h3 style="color: #10b981 !important; font-size: 2.4rem !important; margin: 0 0 20px 0 !important; text-align: center;">⚙️ 我的典型工作流</h3>
+        <div style="font-size: 1.8rem !important; line-height: 2 !important; text-align: left; max-width: 900px; margin: 0 auto;">
+          <p style="margin: 10px 0 !important;">
+            <strong style="color: #38bdf8;">Step 1</strong>: 用 <strong style="color: #fbbf24;">Claude</strong> 做整体设计和主体代码
+          </p>
+          <p style="margin: 10px 0 !important;">
+            <strong style="color: #38bdf8;">Step 2</strong>: 遇到算法问题，问 <strong style="color: #fbbf24;">ChatGPT</strong> 或 <strong style="color: #fbbf24;">DeepSeek</strong>
+          </p>
+          <p style="margin: 10px 0 !important;">
+            <strong style="color: #38bdf8;">Step 3</strong>: 需要中文优化，找 <strong style="color: #fbbf24;">Qwen（通义千问）</strong>
+          </p>
+          <p style="margin: 10px 0 !important;">
+            <strong style="color: #38bdf8;">Step 4</strong>: 集成所有方案，再让 <strong style="color: #fbbf24;">Claude</strong> 统一整合
+          </p>
+          <p style="margin: 10px 0 !important;">
+            <strong style="color: #38bdf8;">Step 5</strong>: 遇到bug，把报错信息同时问几个AI，选最靠谱的解决方案
+          </p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 25px; text-align: center;">
+        <p style="font-size: 2.5rem !important; color: #10b981 !important; font-weight: bold !important; margin: 15px 0 !important;">
+          🔥 AI不是单打独斗，而是团队协作！
+        </p>
+        <p style="font-size: 2rem !important; color: #fbbf24 !important; margin: 10px 0 !important;">
+          就像工地上：木工、瓦工、电工各有专长
+        </p>
+        <p style="font-size: 1.8rem !important; color: #94a3b8 !important; margin: 10px 0 !important;">
+          我是包工头，把合适的任务分配给合适的AI
+        </p>
+      </div>
     </div>
     <div class="controls-bottom">
       <button class="btn" id="prev18">⬅ 上一頁</button>
@@ -925,7 +1002,186 @@
   </div>
 </div>
 
-<!-- ========== 第19页：Zoom交接細節 ========== -->
+<!-- ========== 第19页：互动陷阱问题 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:25%; left:15%; opacity:0.6;">
+      <img src="images/images23.png" alt="互动提问">
+    </div>
+    <div class="text-layer" style="max-width: 95%; padding: 40px 50px;">
+      <h2 style="font-size: 4.5rem !important; margin-bottom: 40px !important; color: #f59e0b !important; text-align: center;">
+        🎯 互动时间：一个简单的问题
+      </h2>
+      
+      <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3) 0%, rgba(251, 146, 60, 0.3) 100%); 
+                  padding: 50px; border-radius: 20px; border: 4px solid #f59e0b; margin: 40px 0;">
+        <p style="font-size: 5rem !important; text-align: center; margin: 0 !important; 
+                   font-weight: 900 !important; color: #fbbf24 !important; 
+                   text-shadow: 0 4px 20px rgba(0,0,0,0.9) !important; line-height: 1.3 !important;">
+          "平时你用AI<br>都干什么？"
+        </p>
+      </div>
+      
+      <div style="margin: 50px 0;">
+        <p style="font-size: 2.5rem !important; text-align: center; color: #38bdf8 !important; margin: 20px 0 !important;">
+          请 <strong style="color: #10b981;">3-4位</strong> 朋友分享一下
+        </p>
+        <p style="font-size: 2rem !important; text-align: center; color: #94a3b8 !important; margin: 15px 0 !important;">
+          不用多说，就简单讲讲：
+        </p>
+        <p style="font-size: 2.2rem !important; text-align: center; color: #60a5fa !important; margin: 10px 0 !important;">
+          💬 "我平时用AI做XXX"
+        </p>
+      </div>
+      
+      <div style="margin-top: 60px; text-align: center;">
+        <p style="font-size: 2rem !important; color: #94a3b8 !important; margin: 10px 0 !important;">
+          ⏱️ 每人 30 秒
+        </p>
+      </div>
+    </div>
+    <div class="controls-bottom">
+      <button class="btn" id="prev19">⬅ 上一頁</button>
+      <button class="btn" id="next19">下一頁 ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第20页：揭晓答案 - 你们掉坑里了！ ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:75%; top:10%; left:12.5%; opacity:0.75;">
+      <img src="images/images24.png" alt="掉坑了">
+    </div>
+    <div class="text-layer" style="max-width: 95%; padding: 40px 50px;">
+      <h2 style="font-size: 4.5rem !important; margin-bottom: 35px !important; color: #ef4444 !important; text-align: center;">
+        😂 你们掉坑里了！
+      </h2>
+      
+      <div style="background: rgba(0,0,0,0.7); padding: 35px; border-radius: 15px; border: 3px solid #ef4444;">
+        <div style="margin-bottom: 35px; padding: 25px; background: rgba(239, 68, 68, 0.2); border-radius: 12px; border-left: 6px solid #ef4444;">
+          <h3 style="color: #ef4444 !important; font-size: 2.8rem !important; margin: 0 0 20px 0 !important;">
+            👥 刚才大家的答案（是不是这样？）
+          </h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">❌</span>
+              "写代码、调试bug"
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">❌</span>
+              "写文档、做PPT"
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">❌</span>
+              "查资料、学习新技术"
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">❌</span>
+              "翻译、润色文章"
+            </li>
+          </ul>
+          <p style="font-size: 2.2rem !important; margin-top: 25px !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important;">
+            🤔 发现了吗？都是<strong style="color: #ef4444;">"工作场景"</strong>！
+          </p>
+        </div>
+        
+        <div style="padding: 25px; background: rgba(16, 185, 128, 0.2); border-radius: 12px; border-left: 6px solid #10b981;">
+          <h3 style="color: #10b981 !important; font-size: 2.8rem !important; margin: 0 0 20px 0 !important;">
+            👴 我这个70岁老头的答案
+          </h3>
+          <ul style="list-style: none; padding: 0; margin: 0;">
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">✅</span>
+              <strong style="color: #10b981;">修房顶漏水</strong> - 问AI怎么堵漏、买什么材料
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">✅</span>
+              <strong style="color: #10b981;">查香蕉面包做法</strong> - 孙子想吃，AI教我怎么做
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">✅</span>
+              <strong style="color: #10b981;">教会FAQ系统</strong> - 弟兄姊妹常问的问题整理
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">✅</span>
+              <strong style="color: #10b981;">和声训练工具</strong> - 帮自己学唱诗
+            </li>
+            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
+              <span style="position: absolute; left: 0;">✅</span>
+              <strong style="color: #10b981;">压簧设计工具</strong> - 把50年经验传给年轻人
+            </li>
+          </ul>
+          <p style="font-size: 2.2rem !important; margin-top: 25px !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important;">
+            💡 这些都是<strong style="color: #10b981;">"生活场景"</strong>！
+          </p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.3) 0%, rgba(245, 158, 11, 0.3) 100%); 
+                  padding: 35px; border-radius: 15px; border: 3px solid #fbbf24;">
+        <h3 style="color: #fbbf24 !important; font-size: 3rem !important; margin: 0 0 25px 0 !important; text-align: center;">
+          🎯 这就是差距！
+        </h3>
+        <div style="font-size: 2.2rem !important; line-height: 1.8 !important; text-align: center;">
+          <p style="margin: 15px 0 !important; color: #ffffff !important;">
+            <strong style="color: #ef4444;">你们</strong>：把AI当成<strong>"工作工具"</strong>
+          </p>
+          <p style="margin: 15px 0 !important; font-size: 2.8rem !important; color: #fbbf24 !important; font-weight: 900 !important;">
+            ⬇️
+          </p>
+          <p style="margin: 15px 0 !important; color: #ffffff !important;">
+            <strong style="color: #10b981;">我</strong>：把AI当成<strong>"生活伙伴"</strong>
+          </p>
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px; text-align: center;">
+        <p style="font-size: 3rem !important; color: #10b981 !important; font-weight: bold !important; 
+                   margin: 20px 0 !important; line-height: 1.5 !important;">
+          🔥 AI最大的价值<br>不是提高工作效率<br>
+          <span style="color: #fbbf24; font-size: 3.5rem !important;">而是改善生活质量！</span>
+        </p>
+        <p style="font-size: 2rem !important; color: #94a3b8 !important; margin-top: 25px !important;">
+          你们开发AI是为了让它<strong style="color: #38bdf8;">进入每个人的生活</strong><br>
+          但你们自己却只把它用在<strong style="color: #ef4444;">工作上</strong>
+        </p>
+        <p style="font-size: 2.5rem !important; color: #fbbf24 !important; margin-top: 30px !important; font-weight: bold !important;">
+          😉 这不是很讽刺吗？
+        </p>
+      </div>
+    </div>
+    <div class="controls-bottom">
+      <button class="btn" id="prev20">⬅ 上一頁</button>
+      <button class="btn" id="next20">下一頁 ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第21页：结语（原第18页）========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:85%; top:10%; left:7.5%;">
+      <img src="images/images17.png" alt="结语">
+    </div>
+    <div class="text-layer">
+      <h2>结语</h2>
+      <p>「班门弄斧」砖搬完了，希望能「抛砖引玉」</p>
+      <p class="zoom-large">我的「砖」：老顽童的使用经历</p>
+      <p class="zoom-large">你的「玉」：新思考、对AI普惠化的新探索</p>
+      <p class="highlight zoom-xlarge">🙏 谢谢各位！</p>
+    </div>
+    <div class="controls-bottom">
+      <button class="btn" id="prev21">⬅ 上一頁</button>
+      <button class="btn" id="next21">下一頁 ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第22页：Zoom交接細節（原第19页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -939,13 +1195,13 @@
       <p>• 使用jitsi開源平臺</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev19">⬅ 上一頁</button>
-      <button class="btn" id="next19">下一頁 ➡</button>
+      <button class="btn" id="prev22">⬅ 上一頁</button>
+      <button class="btn" id="next22">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第20页：音樂創作平台 ========== -->
+<!-- ========== 第23页：音樂創作平台（原第20页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -959,13 +1215,13 @@
       <p>• 孩子們也能用</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev20">⬅ 上一頁</button>
-      <button class="btn" id="next20">下一頁 ➡</button>
+      <button class="btn" id="prev23">⬅ 上一頁</button>
+      <button class="btn" id="next23">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第21页：工程經驗數位化 ========== -->
+<!-- ========== 第24页：工程經驗數位化（原第21页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -979,13 +1235,13 @@
       <p>• 經驗不再遺失</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev21">⬅ 上一頁</button>
-      <button class="btn" id="next21">下一頁 ➡</button>
+      <button class="btn" id="prev24">⬅ 上一頁</button>
+      <button class="btn" id="next24">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第22页：總結 ========== -->
+<!-- ========== 第25页：總結（原第22页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -999,13 +1255,13 @@
       <p>AI負責：實作、細節、速度</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev22">⬅ 上一頁</button>
-      <button class="btn" id="next22">下一頁 ➡</button>
+      <button class="btn" id="prev25">⬅ 上一頁</button>
+      <button class="btn" id="next25">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第23页：都在做没人问特写 ========== -->
+<!-- ========== 第26页：都在做没人问特写（原第23页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1017,13 +1273,13 @@
       <p>三個叉：問需求、說別做、懂停下</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev23">⬅ 上一頁</button>
-      <button class="btn" id="next23">下一頁 ➡</button>
+      <button class="btn" id="prev26">⬅ 上一頁</button>
+      <button class="btn" id="next26">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第24页：FAQ测出极限 ========== -->
+<!-- ========== 第27页：FAQ测出极限（原第24页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1035,13 +1291,13 @@
       <p>AI 是鏡子，照出我們的需求與局限</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev24">⬅ 上一頁</button>
-      <button class="btn" id="next24">下一頁 ➡</button>
+      <button class="btn" id="prev27">⬅ 上一頁</button>
+      <button class="btn" id="next27">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第25页：结语 ========== -->
+<!-- ========== 第28页：结语（原第25页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1053,13 +1309,13 @@
       <p>記憶是累贅，忘卻是智慧</p>
     </div>
     <div class="controls-bottom">
-      <button class="btn" id="prev25">⬅ 上一頁</button>
-      <button class="btn" id="next25">下一頁 ➡</button>
+      <button class="btn" id="prev28">⬅ 上一頁</button>
+      <button class="btn" id="next28">下一頁 ➡</button>
     </div>
   </div>
 </div>
 
-<!-- ========== 第26页：破茧而出视频 ========== -->
+<!-- ========== 第29页：破茧而出视频（原第26页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1068,8 +1324,8 @@
       您的瀏覽器不支持視頻播放
     </video>
     <div class="controls-bottom">
-      <button class="btn" id="prev26">⬅ 上一頁</button>
-      <button class="btn" id="next26" disabled>下一頁 ➡</button>
+      <button class="btn" id="prev29">⬅ 上一頁</button>
+      <button class="btn" id="next29" disabled>結束 🎉</button>
     </div>
   </div>
 </div>
@@ -1077,7 +1333,7 @@
 <script>
   const slides = document.querySelectorAll('.slide');
   let cur = 0;
-  const total = slides.length;
+  const total = slides.length; // 现在是29页
 
   function show(n) {
     slides.forEach(s => s.classList.remove('active'));
@@ -1100,19 +1356,36 @@
     }
   }
 
-  // 主控制按钮
-  document.querySelectorAll('#next, #next2, #next3, #next4, #next5, #next6, #next7, #next8, #next9, #next10, #next11, #next12, #next13, #next14, #next15, #next16, #next17, #next18, #next19, #next20, #next21, #next22, #next23, #next24, #next25, #next26').forEach(btn => {
-    btn.onclick = () => show(cur + 1);
-  });
-  
-  document.querySelectorAll('#prev, #prev2, #prev3, #prev4, #prev5, #prev6, #prev7, #prev8, #prev9, #prev10, #prev11, #prev12, #prev13, #prev14, #prev15, #prev16, #prev17, #prev18, #prev19, #prev20, #prev21, #prev22, #prev23, #prev24, #prev25, #prev26').forEach(btn => {
-    btn.onclick = () => show(cur - 1);
-  });
+  // 自动绑定所有按钮事件
+  for (let i = 1; i <= total; i++) {
+    const nextBtn = document.getElementById(`next${i}`);
+    const prevBtn = document.getElementById(`prev${i}`);
+    
+    if (nextBtn) {
+      nextBtn.onclick = () => {
+        if (i === total) {
+          // 最后一页的特殊处理
+          alert('演讲结束！感谢聆听！🎉');
+        } else {
+          show(cur + 1);
+        }
+      };
+    }
+    
+    if (prevBtn) {
+      prevBtn.onclick = () => show(cur - 1);
+    }
+  }
 
+  // 键盘导航
   document.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowRight' || e.key === ' ') {
       e.preventDefault();
-      show(cur + 1);
+      if (cur === total - 1) {
+        alert('演讲结束！感谢聆听！🎉');
+      } else {
+        show(cur + 1);
+      }
     }
     else if (e.key === 'ArrowLeft') {
       e.preventDefault();
@@ -1136,6 +1409,7 @@
     }
   });
 
+  // 全屏时隐藏光标
   document.addEventListener('fullscreenchange', () => {
     if (document.fullscreenElement) {
       document.body.style.cursor = 'none';
@@ -1144,15 +1418,16 @@
     }
   });
 
-  // 初始化音频
+  // 初始化音频和第一页
   window.addEventListener('DOMContentLoaded', () => {
     const audioElement = document.querySelector('audio');
     if (audioElement) {
-      audioElement.volume = 0.25; // 设置较低音量
+      audioElement.volume = 0.25;
     }
     show(0);
   });
 
+  // 初始显示第一页
   show(0);
 </script>
 
