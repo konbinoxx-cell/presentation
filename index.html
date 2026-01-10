@@ -303,7 +303,7 @@
     /* 图片透明度设置 */
     .slide:not(:first-child) .img-container { opacity: 0.8; }
     .slide:nth-child(14) .img-container { opacity: 0.7; }
-    .slide:nth-child(29) .img-container { opacity: 1; }
+    .slide:nth-child(31) .img-container { opacity: 1; }
     
     /* 第18页专用样式（AI协同作战法） */
     .slide:nth-child(18) .text-layer {
@@ -317,8 +317,14 @@
       padding: 40px 50px;
     }
     
-    /* 第20页专用样式（掉坑里了） */
+    /* 第20页专用样式（你们掉坑里了-前半部分） */
     .slide:nth-child(20) .text-layer {
+      max-width: 95%;
+      padding: 40px 50px;
+    }
+    
+    /* 第30页专用样式（我这个70岁老头的答案） */
+    .slide:nth-child(30) .text-layer {
       max-width: 95%;
       padding: 40px 50px;
     }
@@ -353,20 +359,22 @@
         width: 180px;
       }
       
-      /* 第18-20页响应式 */
+      /* 第18-20、30页响应式 */
       .slide:nth-child(18) .text-layer > div > div,
-      .slide:nth-child(20) .text-layer > div > div {
+      .slide:nth-child(30) .text-layer > div > div {
         grid-template-columns: 1fr !important;
       }
       
       .slide:nth-child(18) h2,
       .slide:nth-child(19) h2,
-      .slide:nth-child(20) h2 {
+      .slide:nth-child(20) h2,
+      .slide:nth-child(30) h2 {
         font-size: 3.8rem !important;
       }
       
       .slide:nth-child(19) .text-layer > div:first-child p,
-      .slide:nth-child(20) ul li {
+      .slide:nth-child(20) ul li,
+      .slide:nth-child(30) ul li {
         font-size: 1.8rem !important;
       }
     }
@@ -432,20 +440,23 @@
         font-size: 1rem !important;
       }
       
-      /* 第18-20页移动端响应式 */
+      /* 第18-20、30页移动端响应式 */
       .slide:nth-child(18) h2,
       .slide:nth-child(19) h2,
-      .slide:nth-child(20) h2 {
+      .slide:nth-child(20) h2,
+      .slide:nth-child(30) h2 {
         font-size: 3.2rem !important;
       }
       
       .slide:nth-child(18) h3,
-      .slide:nth-child(20) h3 {
+      .slide:nth-child(20) h3,
+      .slide:nth-child(30) h3 {
         font-size: 2.2rem !important;
       }
       
       .slide:nth-child(18) p,
-      .slide:nth-child(20) p {
+      .slide:nth-child(20) p,
+      .slide:nth-child(30) p {
         font-size: 1.6rem !important;
       }
       
@@ -453,7 +464,8 @@
         font-size: 3.5rem !important;
       }
       
-      .slide:nth-child(20) ul li {
+      .slide:nth-child(20) ul li,
+      .slide:nth-child(30) ul li {
         font-size: 1.6rem !important;
       }
     }
@@ -462,7 +474,7 @@
 <body>
 
 <!-- 页码显示 -->
-<div class="progress"><span id="counter">1 / 29</span></div>
+<div class="progress"><span id="counter">1 / 31</span></div>
 
 <!-- ========== 第1页：封面 ========== -->
 <div class="slide active">
@@ -471,25 +483,20 @@
     <div class="img-container">
       <img src="images/images0.png" alt="封面">
     </div>
-    
     <div class="text-layer">
       <div class="title-main">我與AI的故事</div>
       <div class="title-sub">一個老頑童的新探索</div>
-      
       <div class="meeting-info">
         <div>📅 1月11日 | 西部時間 下午5點</div>
         <div>🔗 Zoom ID: 832 2328 9056 | 密碼 77777</div>
         <div style="margin-top: 15px;">👤 John弟兄 主領</div>
       </div>
-      
       <div class="church-info">矽谷生命河靈糧堂 | 弟兄讀書會</div>
     </div>
-    
     <div class="controls-bottom">
       <button class="btn" id="prev1" disabled>⬅ 上一頁</button>
       <button class="btn" id="next1">下一頁 ➡</button>
     </div>
-    
     <div class="audio-mini">
       <div class="audio-label">🎵 靈火如風</div>
       <audio controls>
@@ -897,6 +904,7 @@
   </div>
 </div>
 
+<!-- 第一段结束 -->
 <!-- ========== 第18页：我的AI协同作战法 ========== -->
 <div class="slide">
   <div class="bg"></div>
@@ -1048,7 +1056,7 @@
   </div>
 </div>
 
-<!-- ========== 第20页：揭晓答案 - 你们掉坑里了！ ========== -->
+<!-- ========== 第20页：你们掉坑里了！（前半部分）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1060,102 +1068,147 @@
         😂 你们掉坑里了！
       </h2>
       
-      <div style="background: rgba(0,0,0,0.7); padding: 35px; border-radius: 15px; border: 3px solid #ef4444;">
-        <div style="margin-bottom: 35px; padding: 25px; background: rgba(239, 68, 68, 0.2); border-radius: 12px; border-left: 6px solid #ef4444;">
-          <h3 style="color: #ef4444 !important; font-size: 2.8rem !important; margin: 0 0 20px 0 !important;">
-            👥 刚才大家的答案（是不是这样？）
-          </h3>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">❌</span>
-              "写代码、调试bug"
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">❌</span>
-              "写文档、做PPT"
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">❌</span>
-              "查资料、学习新技术"
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">❌</span>
-              "翻译、润色文章"
-            </li>
-          </ul>
-          <p style="font-size: 2.2rem !important; margin-top: 25px !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important;">
-            🤔 发现了吗？都是<strong style="color: #ef4444;">"工作场景"</strong>！
-          </p>
-        </div>
-        
-        <div style="padding: 25px; background: rgba(16, 185, 128, 0.2); border-radius: 12px; border-left: 6px solid #10b981;">
-          <h3 style="color: #10b981 !important; font-size: 2.8rem !important; margin: 0 0 20px 0 !important;">
-            👴 我这个70岁老头的答案
-          </h3>
-          <ul style="list-style: none; padding: 0; margin: 0;">
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">✅</span>
-              <strong style="color: #10b981;">修房顶漏水</strong> - 问AI怎么堵漏、买什么材料
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">✅</span>
-              <strong style="color: #10b981;">查香蕉面包做法</strong> - 孙子想吃，AI教我怎么做
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">✅</span>
-              <strong style="color: #10b981;">教会FAQ系统</strong> - 弟兄姊妹常问的问题整理
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">✅</span>
-              <strong style="color: #10b981;">和声训练工具</strong> - 帮自己学唱诗
-            </li>
-            <li style="font-size: 2rem !important; margin: 12px 0 !important; padding-left: 30px; position: relative;">
-              <span style="position: absolute; left: 0;">✅</span>
-              <strong style="color: #10b981;">压簧设计工具</strong> - 把50年经验传给年轻人
-            </li>
-          </ul>
-          <p style="font-size: 2.2rem !important; margin-top: 25px !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important;">
-            💡 这些都是<strong style="color: #10b981;">"生活场景"</strong>！
-          </p>
-        </div>
-      </div>
-      
-      <div style="margin-top: 40px; background: linear-gradient(135deg, rgba(251, 191, 36, 0.3) 0%, rgba(245, 158, 11, 0.3) 100%); 
-                  padding: 35px; border-radius: 15px; border: 3px solid #fbbf24;">
-        <h3 style="color: #fbbf24 !important; font-size: 3rem !important; margin: 0 0 25px 0 !important; text-align: center;">
-          🎯 这就是差距！
+      <div style="background: rgba(239, 68, 68, 0.2); padding: 35px; border-radius: 15px; border-left: 6px solid #ef4444; margin-bottom: 40px;">
+        <h3 style="color: #ef4444 !important; font-size: 2.8rem !important; margin: 0 0 20px 0 !important;">
+          👥 刚才大家的答案（是不是这样？）
         </h3>
-        <div style="font-size: 2.2rem !important; line-height: 1.8 !important; text-align: center;">
-          <p style="margin: 15px 0 !important; color: #ffffff !important;">
-            <strong style="color: #ef4444;">你们</strong>：把AI当成<strong>"工作工具"</strong>
-          </p>
-          <p style="margin: 15px 0 !important; font-size: 2.8rem !important; color: #fbbf24 !important; font-weight: 900 !important;">
-            ⬇️
-          </p>
-          <p style="margin: 15px 0 !important; color: #ffffff !important;">
-            <strong style="color: #10b981;">我</strong>：把AI当成<strong>"生活伙伴"</strong>
-          </p>
-        </div>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important;">❌</span>
+            "写代码、调试bug"
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important;">❌</span>
+            "写文档、做PPT"
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important;">❌</span>
+            "查资料、学习新技术"
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important;">❌</span>
+            "翻译、润色文章"
+          </li>
+        </ul>
       </div>
       
-      <div style="margin-top: 40px; text-align: center;">
-        <p style="font-size: 3rem !important; color: #10b981 !important; font-weight: bold !important; 
-                   margin: 20px 0 !important; line-height: 1.5 !important;">
-          🔥 AI最大的价值<br>不是提高工作效率<br>
-          <span style="color: #fbbf24; font-size: 3.5rem !important;">而是改善生活质量！</span>
+      <div style="margin: 40px 0; padding: 20px 0; border-top: 3px solid #fbbf24; border-bottom: 3px solid #fbbf24;">
+        <p style="font-size: 3rem !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important; margin: 0 !important;">
+          🤔 发现了吗？都是<strong style="color: #ef4444;">"工作场景"</strong>！
         </p>
-        <p style="font-size: 2rem !important; color: #94a3b8 !important; margin-top: 25px !important;">
-          你们开发AI是为了让它<strong style="color: #38bdf8;">进入每个人的生活</strong><br>
-          但你们自己却只把它用在<strong style="color: #ef4444;">工作上</strong>
+      </div>
+      
+      <div style="margin-top: 50px; text-align: center;">
+        <p style="font-size: 2.5rem !important; color: #38bdf8 !important; margin: 10px 0 !important;">
+          下一页看看<strong style="color: #10b981;">我这个70岁老头的答案</strong>
         </p>
-        <p style="font-size: 2.5rem !important; color: #fbbf24 !important; margin-top: 30px !important; font-weight: bold !important;">
-          😉 这不是很讽刺吗？
+        <p style="font-size: 2rem !important; color: #94a3b8 !important; margin: 10px 0 !important;">
+          👇 继续往下看 👇
         </p>
       </div>
     </div>
     <div class="controls-bottom">
       <button class="btn" id="prev20">⬅ 上一頁</button>
       <button class="btn" id="next20">下一頁 ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第30页：我这个70岁老头的答案 ========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:70%; top:20%; left:15%; opacity:0.7;">
+      <img src="images/images25.png" alt="老头答案">
+    </div>
+    <div class="text-layer" style="max-width: 95%; padding: 40px 50px;">
+      <h2 style="font-size: 4.2rem !important; margin-bottom: 40px !important; color: #10b981 !important; text-align: center;">
+        👴 我这个70岁老头的答案
+      </h2>
+      
+      <div style="background: rgba(16, 185, 128, 0.2); padding: 35px; border-radius: 15px; border-left: 6px solid #10b981; margin-bottom: 40px;">
+        <h3 style="color: #10b981 !important; font-size: 2.8rem !important; margin: 0 0 25px 0 !important; text-align: center;">
+          ✅ 我的AI使用场景
+        </h3>
+        <ul style="list-style: none; padding: 0; margin: 0;">
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important; color: #10b981;">✓</span>
+            <strong style="color: #10b981;">修房顶漏水</strong> - 问AI怎么堵漏、买什么材料
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important; color: #10b981;">✓</span>
+            <strong style="color: #10b981;">查香蕉面包做法</strong> - 孙子想吃，AI教我怎么做
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important; color: #10b981;">✓</span>
+            <strong style="color: #10b981;">教会FAQ系统</strong> - 弟兄姊妹常问的问题整理
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important; color: #10b981;">✓</span>
+            <strong style="color: #10b981;">和声训练工具</strong> - 帮自己学唱诗
+          </li>
+          <li style="font-size: 2.5rem !important; margin: 20px 0 !important; padding-left: 40px; position: relative;">
+            <span style="position: absolute; left: 0; font-size: 3rem !important; color: #10b981;">✓</span>
+            <strong style="color: #10b981;">压簧设计工具</strong> - 把50年经验传给年轻人
+          </li>
+        </ul>
+        <div style="margin-top: 30px; padding: 20px; background: rgba(16, 185, 128, 0.3); border-radius: 10px;">
+          <p style="font-size: 2.8rem !important; text-align: center; color: #fbbf24 !important; font-weight: bold !important; margin: 0 !important;">
+            💡 这些都是<strong style="color: #10b981;">"生活场景"</strong>！
+          </p>
+        </div>
+      </div>
+      
+      <div style="margin: 40px 0; background: rgba(0,0,0,0.7); padding: 30px; border-radius: 15px; border: 3px solid #fbbf24;">
+        <h3 style="color: #fbbf24 !important; font-size: 3rem !important; margin: 0 0 30px 0 !important; text-align: center;">
+          🎯 这就是差距！
+        </h3>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+          <div style="background: rgba(239, 68, 68, 0.2); padding: 25px; border-radius: 12px; border: 2px solid #ef4444;">
+            <h4 style="color: #ef4444 !important; font-size: 2.5rem !important; margin: 0 0 15px 0 !important; text-align: center;">👥 你们</h4>
+            <p style="font-size: 2.2rem !important; color: #ffffff !important; text-align: center; margin: 10px 0 !important;">
+              把AI当成<br><strong style="color: #ef4444; font-size: 2.5rem !important;">"工作工具"</strong>
+            </p>
+          </div>
+          <div style="background: rgba(16, 185, 128, 0.2); padding: 25px; border-radius: 12px; border: 2px solid #10b981;">
+            <h4 style="color: #10b981 !important; font-size: 2.5rem !important; margin: 0 0 15px 0 !important; text-align: center;">👴 我</h4>
+            <p style="font-size: 2.2rem !important; color: #ffffff !important; text-align: center; margin: 10px 0 !important;">
+              把AI当成<br><strong style="color: #10b981; font-size: 2.5rem !important;">"生活伙伴"</strong>
+            </p>
+          </div>
+        </div>
+      </div>
+      
+      <div style="margin-top: 40px; text-align: center;">
+        <div style="background: linear-gradient(135deg, rgba(56, 189, 248, 0.3) 0%, rgba(16, 185, 128, 0.3) 100%); 
+                    padding: 40px; border-radius: 20px; border: 4px solid #38bdf8;">
+          <p style="font-size: 3.5rem !important; color: #10b981 !important; font-weight: 900 !important; 
+                     margin: 0 0 20px 0 !important; line-height: 1.4 !important;">
+            🔥 AI最大的价值
+          </p>
+          <p style="font-size: 4rem !important; color: #fbbf24 !important; font-weight: 900 !important; 
+                     margin: 0 0 30px 0 !important; line-height: 1.3 !important;">
+            不是提高工作效率<br>
+            <span style="color: #10b981; font-size: 4.5rem !important;">而是改善生活质量！</span>
+          </p>
+        </div>
+        
+        <div style="margin-top: 40px; padding: 25px; background: rgba(251, 191, 36, 0.2); border-radius: 15px;">
+          <p style="font-size: 2.5rem !important; color: #94a3b8 !important; margin: 15px 0 !important;">
+            你们开发AI是为了让它<strong style="color: #38bdf8;">进入每个人的生活</strong>
+          </p>
+          <p style="font-size: 2.5rem !important; color: #94a3b8 !important; margin: 15px 0 !important;">
+            但你们自己却只把它用在<strong style="color: #ef4444;">工作上</strong>
+          </p>
+          <p style="font-size: 3rem !important; color: #fbbf24 !important; margin-top: 30px !important; font-weight: bold !important;">
+            😉 这不是很讽刺吗？
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="controls-bottom">
+      <button class="btn" id="prev30">⬅ 上一頁</button>
+      <button class="btn" id="next30">下一頁 ➡</button>
     </div>
   </div>
 </div>
@@ -1315,7 +1368,30 @@
   </div>
 </div>
 
-<!-- ========== 第29页：破茧而出视频（原第26页）========== -->
+<!-- ========== 第29页：結語2（新增頁面）========== -->
+<div class="slide">
+  <div class="bg"></div>
+  <div class="content">
+    <div class="img-container" style="width:80%; top:15%; left:10%; opacity:0.7;">
+      <img src="images/images0.png" alt="結語">
+    </div>
+    <div class="text-layer">
+      <h2>再見與祝福</h2>
+      <p class="zoom-large">願AI成為您生活中的好幫手</p>
+      <p>讓科技服務於人，而不是人服務於科技</p>
+      <p class="highlight zoom-xlarge">願神的智慧引導我們使用AI</p>
+    </div>
+    <div class="controls-bottom">
+      <button class="btn" id="prev29">⬅ 上一頁</button>
+      <button class="btn" id="next29">下一頁 ➡</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========== 第30页：我这个70岁老头的答案（已插入在前）========== -->
+<!-- 注意：第30页已经插入在第20页之后 -->
+
+<!-- ========== 第31页：破茧而出视频（最后一页）========== -->
 <div class="slide">
   <div class="bg"></div>
   <div class="content">
@@ -1324,8 +1400,8 @@
       您的瀏覽器不支持視頻播放
     </video>
     <div class="controls-bottom">
-      <button class="btn" id="prev29">⬅ 上一頁</button>
-      <button class="btn" id="next29" disabled>結束 🎉</button>
+      <button class="btn" id="prev31">⬅ 上一頁</button>
+      <button class="btn" id="next31" disabled>結束 🎉</button>
     </div>
   </div>
 </div>
@@ -1333,7 +1409,7 @@
 <script>
   const slides = document.querySelectorAll('.slide');
   let cur = 0;
-  const total = slides.length; // 现在是29页
+  const total = slides.length; // 应该是31页
 
   function show(n) {
     slides.forEach(s => s.classList.remove('active'));
@@ -1356,7 +1432,7 @@
     }
   }
 
-  // 自动绑定所有按钮事件
+  // 自动绑定所有按钮事件（1-31页）
   for (let i = 1; i <= total; i++) {
     const nextBtn = document.getElementById(`next${i}`);
     const prevBtn = document.getElementById(`prev${i}`);
@@ -1430,6 +1506,5 @@
   // 初始显示第一页
   show(0);
 </script>
-
 </body>
-</html>
+</html> 
