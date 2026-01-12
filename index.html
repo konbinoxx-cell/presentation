@@ -206,7 +206,7 @@
     /* ========== 音频控件上移，避免与按钮重叠 ========== */
       .audio-mini {
         position: fixed;
-        top: 90px;        /* 从底部改为顶部 */
+        top: 120px;        /* 从底部改为顶部 */
         right: 20px;
         z-index: 100;
         background: rgba(0,0,0,0.7);
@@ -214,13 +214,13 @@
         border-radius: 20px;
         backdrop-filter: blur(5px);
         border: 1px solid rgba(56, 189, 248, 0.3);
-        min-width: 240px;
-        font-size: 1.0rem;
+        min-width: 200px;
+        font-size: 0.7rem;
 }
 
       .audio-mini audio {
         width: 200px; /* 缩小音频控件 */
-        height: 32px;
+        height: 25px;
       }
 
       .audio-mini .audio-label {
@@ -385,7 +385,7 @@
         min-width: 130px;
       }
       .audio-mini {
-        bottom: 25px;
+        top: 120px;
         right: 25px;
       }
       .audio-mini audio {
