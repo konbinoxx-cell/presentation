@@ -1480,7 +1480,7 @@ function loadAudioState() {
       isPlaying = state.isPlaying || false;
       
       if (isPlaying && !isInitialized) {
-        loadCurrentSong(true); // 恢复播放
+        loadCurrentSong(true); // 恢復播放
         audioPlayer.currentTime = state.currentTime || 0;
       }
     } catch (e) {
