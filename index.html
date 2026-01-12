@@ -205,18 +205,18 @@
     
     /* ========== 音频控件上移，避免与按钮重叠 ========== */
       .audio-mini {
-        position: absolute;
-        bottom: 90px; /* 原为 30px，上移 60px */
-        right: 30px;
-        z-index: 10;
+        position: fixed;
+        top: 90px;        /* 从底部改为顶部 */
+        right: 20px;
+        z-index: 100;
         background: rgba(0,0,0,0.7);
-        padding: 8px 15px; /* 缩小内边距 */
+        padding: 8px 15px;
         border-radius: 20px;
         backdrop-filter: blur(5px);
         border: 1px solid rgba(56, 189, 248, 0.3);
-        min-width: 240px; /* 缩小宽度 */
-        font-size: 1.0rem; /* 缩小字体 */
-      }
+        min-width: 240px;
+        font-size: 1.0rem;
+}
 
       .audio-mini audio {
         width: 200px; /* 缩小音频控件 */
@@ -461,13 +461,13 @@
         grid-template-columns: 1fr !important;
       }
       .audio-mini {
-        bottom: 15px;
+        bottom: 10px;
         right: 20px;
         padding: 8px 12px;
       }
       .audio-mini audio {
         width: 100px;
-        height: 20px;
+        height: 25px;
       }
       .audio-mini .audio-label {
         font-size: 1rem !important;
