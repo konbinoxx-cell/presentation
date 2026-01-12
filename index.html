@@ -1437,231 +1437,371 @@
 </div>
 
 <script>
-  // ========== 8首歌曲循環播放系統 ==========
-  const audioPlayer = document.querySelector('audio');
-  
-  // 8首AI創作歌曲播放清單（自定義順序）
-  const playlist = [
-    { name: '我們的神一生伴隨', src: 'audio/我們的神一生伴隨.mp3' },
-    { name: '靈火如風', src: 'audio/靈火如風.mp3' },
-    { name: '你來到我身邊，帶著神的恩典', src: 'audio/你來到我身邊，帶著神的恩典.mp3' },
-    { name: '伯仲之間', src: 'audio/伯仲之間.mp3' },
-    { name: '坍塌與疊加', src: 'audio/坍塌與疊加.mp3' },
-    { name: '永恆的陪伴', src: 'audio/永恆的陪伴.mp3' },
-    { name: '神伴我一生', src: 'audio/神伴我一生.mp3' },
-    { name: '黑暗與光明', src: 'audio/黑暗與光明.mp3' }
-  ];
-  
-  let currentSongIndex = 0;
-  let isPlaying = true; // 默認播放
-  
-  // 更新音頻播放器界面
-  function updateAudioDisplay() {
-    const audioLabel = document.querySelector('.audio-label');
-    if (audioLabel) {
-      const song = playlist[currentSongIndex];
-      audioLabel.innerHTML = 
-        `🎵 ${song.name}<br><span style="font-size:0.8rem; color:#60a5fa">${currentSongIndex + 1}/${playlist.length}</span>`;
-    }
-  }
-  
-  // 播放下一首歌曲
-  function playNextSong() {
-    currentSongIndex = (currentSongIndex + 1) % playlist.length;
-    loadCurrentSong();
-  }
-  
-  // 播放上一首歌曲
-  function playPrevSong() {
-    currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-    loadCurrentSong();
-  }
-  
-  // 載入當前歌曲
-  function loadCurrentSong() {
-    const song = playlist[currentSongIndex];
-    audioPlayer.src = song.src;
-    updateAudioDisplay();
-    
-    // 加載後自動播放
-    audioPlayer.load(); // 重新加載音頻
-    const playPromise = audioPlayer.play();
-    
-    if (playPromise !== undefined) {
-      playPromise.catch(error => {
-        console.log('自動播放被阻止，需要用戶互動:', error);
-        // 如果自動播放失敗，設置一個標記等待用戶互動
-      });
-    }
-  }
-  
-  // 歌曲結束自動下一首
-  audioPlayer.addEventListener('ended', () => {
-    console.log('歌曲結束，切換到下一首');
-    playNextSong();
-  });
-  
-  // 播放狀態變化
-  audioPlayer.addEventListener('play', () => {
-    isPlaying = true;
-    updateAudioDisplay();
-  });
-  
-  audioPlayer.addEventListener('pause', () => {
-    isPlaying = false;
-  });
-  
-  // 錯誤處理
-  audioPlayer.addEventListener('error', (e) => {
-    console.error('音頻加載錯誤:', e);
-    // 如果當前歌曲加載失敗，嘗試下一首
-    setTimeout(() => {
-      playNextSong();
-    }, 1000);
-  });
-  
-  // 初始化音頻系統
-  window.addEventListener('DOMContentLoaded', () => {
-    audioPlayer.volume = 0.25;
-    
-    // 添加控制按鈕（如果不存在）
-    if (!document.querySelector('.song-controls')) {
-      const audioContainer = document.querySelector('.audio-mini');
-      if (audioContainer) {
-        const controlsHTML = `
-          <div class="audio-info">
-            <div class="audio-label" id="currentSong">🎵 載入中...</div>
-            <div class="song-controls">
-              <button class="song-btn" id="prevSongBtn" title="上一首">⏮</button>
-              <button class="song-btn" id="nextSongBtn" title="下一首">⏭</button>
-            </div>
-          </div>
-        `;
-        
-        // 替換原有的audio-info
-        const existingAudioInfo = audioContainer.querySelector('.audio-info');
-        if (existingAudioInfo) {
-          existingAudioInfo.innerHTML = controlsHTML;
-        } else {
-          const audioElement = audioContainer.querySelector('audio');
-          audioElement.insertAdjacentHTML('beforebegin', controlsHTML);
-        }
-        
-        document.getElementById('prevSongBtn').onclick = (e) => {
-          e.preventDefault();
-          playPrevSong();
-        };
-        
-        document.getElementById('nextSongBtn').onclick = (e) => {
-          e.preventDefault();
-          playNextSong();
-        };
-      }
-    }
-    
-    // 加載第一首歌
-    loadCurrentSong();
-  });
+// ========== 页面导航变量（必须添加！）==========
+const slides = document.querySelectorAll('.slide');
+let cur = 0;
+const total = slides.length;
 
-  // ========== 幻燈片控制（保持不變）==========
-  const slides = document.querySelectorAll('.slide');
-  let cur = 0;
-  const total = slides.length;
-  
-  function show(n) {
-    slides.forEach(s => s.classList.remove('active'));
-    cur = Math.max(0, Math.min(n, total - 1));
-    slides[cur].classList.add('active');
-    
-    document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
-    
-    document.querySelectorAll('video').forEach(video => {
-      video.pause();
-    });
-    
-    const currentVideo = slides[cur].querySelector('video');
-    if (currentVideo) {
-      setTimeout(() => {
-        currentVideo.currentTime = 0;
-        currentVideo.play().catch(e => console.log('影片播放失敗:', e));
-      }, 300);
+// ========== 音频系统 ==========
+const audioPlayer = document.querySelector('audio');
+let currentSongIndex = 0;
+let isPlaying = false;
+let isInitialized = false;
+
+// 8首AI創作歌曲播放清單
+const playlist = [
+  { name: '我們的神一生伴隨', src: 'audio/我們的神一生伴隨.mp3' },
+  { name: '靈火如風', src: 'audio/靈火如風.mp3' },
+  { name: '你來到我身邊，帶著神的恩典', src: 'audio/你來到我身邊，帶著神的恩典.mp3' },
+  { name: '伯仲之間', src: 'audio/伯仲之間.mp3' },
+  { name: '坍塌與疊加', src: 'audio/坍塌與疊加.mp3' },
+  { name: '永恆的陪伴', src: 'audio/永恆的陪伴.mp3' },
+  { name: '神伴我一生', src: 'audio/神伴我一生.mp3' },
+  { name: '黑暗與光明', src: 'audio/黑暗與光明.mp3' }
+];
+
+// ========== 保存/加载状态 ==========
+function saveAudioState() {
+  localStorage.setItem('audioState', JSON.stringify({
+    songIndex: currentSongIndex,
+    isPlaying: isPlaying,
+    currentTime: audioPlayer.currentTime
+  }));
+}
+
+function loadAudioState() {
+  const saved = localStorage.getItem('audioState');
+  if (saved) {
+    try {
+      const state = JSON.parse(saved);
+      currentSongIndex = state.songIndex || 0;
+      isPlaying = state.isPlaying || false;
+      
+      if (isPlaying && !isInitialized) {
+        loadCurrentSong(true); // 恢复播放
+        audioPlayer.currentTime = state.currentTime || 0;
+      }
+    } catch (e) {
+      console.log('加載音頻狀態失敗:', e);
     }
   }
+}
+
+// ========== 关键修复：loadCurrentSong函数 ==========
+function loadCurrentSong(shouldPlay = false) {
+  if (!playlist[currentSongIndex]) return;
   
-  // 自動綁定所有按鈕事件
-  for (let i = 1; i <= 33; i++) {
-    const nextBtn = document.getElementById(`next${i}`);
-    const prevBtn = document.getElementById(`prev${i}`);
+  const song = playlist[currentSongIndex];
+  console.log('載入歌曲:', song.name, '應該播放:', shouldPlay);
+  
+  // 設置新歌曲
+  audioPlayer.src = song.src;
+  updateAudioDisplay();
+  
+  // 加載新歌曲
+  audioPlayer.load();
+  
+  // 如果需要播放，等待加載完成後播放
+  if (shouldPlay || isPlaying) {
+    console.log('準備播放歌曲...');
     
-    if (nextBtn) {
-      nextBtn.onclick = () => {
-        if (cur === total - 1) {
-          alert('演講結束！感謝聆聽！🎉');
-        } else {
-          show(cur + 1);
-        }
+    const tryPlay = () => {
+      audioPlayer.play()
+        .then(() => {
+          console.log('播放成功:', song.name);
+          isPlaying = true;
+          updatePlayPauseButton();
+          saveAudioState();
+        })
+        .catch(error => {
+          console.error('播放失敗:', error);
+          isPlaying = false;
+          updatePlayPauseButton();
+          
+          // 如果是權限問題，可能需要用戶點擊
+          if (error.name === 'NotAllowedError') {
+            console.log('需要用戶交互');
+          }
+        });
+    };
+    
+    // 等待歌曲加載完成
+    if (audioPlayer.readyState >= 3) {
+      console.log('歌曲已就緒，立即播放');
+      tryPlay();
+    } else {
+      console.log('等待歌曲加載...');
+      const onCanPlay = () => {
+        console.log('歌曲加載完成，開始播放');
+        tryPlay();
+        audioPlayer.removeEventListener('canplay', onCanPlay);
       };
-    }
-    
-    if (prevBtn) {
-      prevBtn.onclick = () => show(cur - 1);
+      audioPlayer.addEventListener('canplay', onCanPlay);
+      
+      // 超時處理
+      setTimeout(() => {
+        if (audioPlayer.readyState > 0) {
+          console.log('超時，嘗試播放');
+          tryPlay();
+        }
+      }, 3000);
     }
   }
   
-  // 鍵盤導航（保持不變）
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' || e.key === ' ') {
+  saveAudioState();
+}
+
+// ========== 歌曲結束自動播放（關鍵修復！）==========
+audioPlayer.addEventListener('ended', () => {
+  console.log('🎵 歌曲結束，切換到下一首');
+  currentSongIndex = (currentSongIndex + 1) % playlist.length;
+  console.log('下一首索引:', currentSongIndex, '歌曲:', playlist[currentSongIndex].name);
+  loadCurrentSong(true); // 強制自動播放下一首
+});
+
+// ========== 控制函數 ==========
+function updatePlayPauseButton() {
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  if (playPauseBtn) {
+    playPauseBtn.innerHTML = isPlaying ? '⏸️' : '▶️';
+    playPauseBtn.title = isPlaying ? '暫停' : '播放';
+  }
+}
+
+function updateAudioDisplay() {
+  const audioLabel = document.querySelector('.audio-label');
+  if (audioLabel && playlist[currentSongIndex]) {
+    const song = playlist[currentSongIndex];
+    audioLabel.innerHTML = 
+      `🎵 ${song.name}<br><span style="font-size:0.8rem; color:#60a5fa">${currentSongIndex + 1}/${playlist.length}</span>`;
+  }
+}
+
+function togglePlayPause() {
+  if (isPlaying) {
+    audioPlayer.pause();
+    isPlaying = false;
+    console.log('已暫停');
+  } else {
+    console.log('開始播放...');
+    
+    // 確保歌曲已加載
+    if (!audioPlayer.src || audioPlayer.src === '') {
+      console.log('首次播放，載入歌曲');
+      loadCurrentSong(true);
+    } else {
+      audioPlayer.play()
+        .then(() => {
+          isPlaying = true;
+          console.log('播放成功');
+        })
+        .catch(error => {
+          console.error('播放失敗:', error);
+        });
+    }
+  }
+  
+  updatePlayPauseButton();
+  saveAudioState();
+}
+
+function playNextSong() {
+  console.log('手動下一首');
+  currentSongIndex = (currentSongIndex + 1) % playlist.length;
+  loadCurrentSong(true); // 切換後自動播放
+}
+
+function playPrevSong() {
+  console.log('手動上一首');
+  currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
+  loadCurrentSong(true); // 切換後自動播放
+}
+
+// ========== 其他事件監聽 ==========
+audioPlayer.addEventListener('play', () => {
+  isPlaying = true;
+  updatePlayPauseButton();
+  saveAudioState();
+});
+
+audioPlayer.addEventListener('pause', () => {
+  isPlaying = false;
+  updatePlayPauseButton();
+  saveAudioState();
+});
+
+// ========== 初始化 ==========
+window.addEventListener('DOMContentLoaded', () => {
+  console.log('音頻系統初始化');
+  audioPlayer.volume = 0.25;
+  
+  // 加載保存的狀態
+  loadAudioState();
+  
+  // 綁定控制按鈕
+  const playPauseBtn = document.getElementById('playPauseBtn');
+  const prevSongBtn = document.getElementById('prevSongBtn');
+  const nextSongBtn = document.getElementById('nextSongBtn');
+  
+  if (playPauseBtn) {
+    playPauseBtn.onclick = (e) => {
       e.preventDefault();
+      togglePlayPause();
+    };
+  }
+  
+  if (prevSongBtn) {
+    prevSongBtn.onclick = (e) => {
+      e.preventDefault();
+      playPrevSong();
+    };
+  }
+  
+  if (nextSongBtn) {
+    nextSongBtn.onclick = (e) => {
+      e.preventDefault();
+      playNextSong();
+    };
+  }
+  
+  // 如果沒有保存的狀態，載入第一首歌（但不播放）
+  if (!localStorage.getItem('audioState')) {
+    console.log('首次使用，載入第一首歌');
+    loadCurrentSong(false); // 不加載時不播放
+  }
+  
+  isInitialized = true;
+  
+  // 移動端提示
+  if ('ontouchstart' in window && !isPlaying) {
+    const audioContainer = document.querySelector('.audio-mini');
+    if (audioContainer && !audioContainer.querySelector('.mobile-hint')) {
+      const hint = document.createElement('div');
+      hint.className = 'mobile-hint';
+      hint.innerHTML = '👆 點擊播放按鈕開始音樂';
+      hint.style.cssText = `
+        font-size: 0.9rem;
+        color: #60a5fa;
+        text-align: center;
+        margin-top: 5px;
+      `;
+      audioContainer.appendChild(hint);
+    }
+  }
+});
+
+// ========== 页面导航函数 ==========
+function show(n) {
+  // 暫停所有影片（但不暫停背景音樂！）
+  document.querySelectorAll('video').forEach(video => {
+    video.pause();
+  });
+  
+  // 切換頁面
+  slides.forEach(s => s.classList.remove('active'));
+  cur = Math.max(0, Math.min(n, total - 1));
+  slides[cur].classList.add('active');
+  
+  // 更新頁碼
+  document.getElementById('counter').textContent = `${cur + 1} / ${total}`;
+  
+  // 處理當前頁面的影片
+  const currentVideo = slides[cur].querySelector('video');
+  if (currentVideo) {
+    setTimeout(() => {
+      currentVideo.currentTime = 0;
+      currentVideo.play().catch(e => console.log('影片播放失敗:', e));
+    }, 300);
+  }
+  
+  // 保存頁面狀態
+  localStorage.setItem('currentPage', cur);
+}
+
+// ========== 頁面加載時恢復位置 ==========
+const savedPage = localStorage.getItem('currentPage');
+if (savedPage !== null) {
+  setTimeout(() => {
+    show(parseInt(savedPage));
+  }, 100);
+}
+
+// ========== 綁定所有頁面按鈕 ==========
+for (let i = 1; i <= total; i++) {
+  const nextBtn = document.getElementById(`next${i}`);
+  const prevBtn = document.getElementById(`prev${i}`);
+  
+  if (nextBtn) {
+    nextBtn.onclick = () => {
       if (cur === total - 1) {
         alert('演講結束！感謝聆聽！🎉');
       } else {
         show(cur + 1);
       }
-    }
-    else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      show(cur - 1);
-    }
-    else if (e.key === 'Home') {
-      e.preventDefault();
-      show(0);
-    }
-    else if (e.key === 'End') {
-      e.preventDefault();
-      show(total - 1);
-    }
-    else if (e.key === 'f' || e.key === 'F') {
-      e.preventDefault();
-      if (!document.fullscreenElement) {
-        document.documentElement.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
-    else if (e.key === 'm' || e.key === 'M') {
-      e.preventDefault();
-      audioPlayer.muted = !audioPlayer.muted;
-    }
-    else if (e.key === '>') {
-      e.preventDefault();
-      audioPlayer.volume = Math.min(1, audioPlayer.volume + 0.1);
-    }
-    else if (e.key === '<') {
-      e.preventDefault();
-      audioPlayer.volume = Math.max(0, audioPlayer.volume - 0.1);
-    }
-  });
+    };
+  }
   
-  document.addEventListener('fullscreenchange', () => {
-    if (document.fullscreenElement) {
-      document.body.style.cursor = 'none';
-    } else {
-      document.body.style.cursor = 'default';
-    }
-  });
+  if (prevBtn) {
+    prevBtn.onclick = () => show(cur - 1);
+  }
+}
+
+// ========== 鍵盤快捷鍵 ==========
+document.addEventListener('keydown', (e) => {
+  // 空格鍵：播放/暫停
+  if ((e.key === ' ' || e.key === 'Spacebar') && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+    e.preventDefault();
+    togglePlayPause();
+  }
   
-  // 初始顯示第一頁
-  show(0);
+  // N鍵：下一首
+  else if (e.key === 'n' || e.key === 'N') {
+    e.preventDefault();
+    playNextSong();
+  }
+  
+  // P鍵：上一首
+  else if (e.key === 'p' || e.key === 'P') {
+    e.preventDefault();
+    playPrevSong();
+  }
+  
+  // M鍵：靜音
+  else if (e.key === 'm' || e.key === 'M') {
+    e.preventDefault();
+    audioPlayer.muted = !audioPlayer.muted;
+  }
+  
+  // 方向鍵：翻頁
+  else if (e.key === 'ArrowRight') {
+    e.preventDefault();
+    if (cur < total - 1) show(cur + 1);
+  }
+  else if (e.key === 'ArrowLeft') {
+    e.preventDefault();
+    if (cur > 0) show(cur - 1);
+  }
+});
+
+// ========== 全螢幕支持 ==========
+document.addEventListener('fullscreenchange', () => {
+  if (document.fullscreenElement) {
+    document.body.style.cursor = 'none';
+  } else {
+    document.body.style.cursor = 'default';
+  }
+});
+
+// ========== 調試函數 ==========
+window.debugAudio = function() {
+  console.log('=== 音頻調試 ===');
+  console.log('當前歌曲:', currentSongIndex + 1, playlist[currentSongIndex]?.name);
+  console.log('正在播放:', isPlaying);
+  console.log('音頻src:', audioPlayer.src);
+  console.log('準備狀態:', audioPlayer.readyState);
+  console.log('當前時間:', audioPlayer.currentTime);
+  console.log('總時長:', audioPlayer.duration);
+};
 </script>
 </body>
 </html>
