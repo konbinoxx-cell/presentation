@@ -243,19 +243,49 @@
       gap: 10px;
     }
     
-    .audio-mini .song-btn {
-      background: rgba(56, 189, 248, 0.2);
-      border: 1px solid rgba(56, 189, 248, 0.5);
-      color: white;
-      border-radius: 50%;
-      width: 25px;
-      height: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.9rem;
-    }
+   /* ========== 音频控件：PC 保持原样，手机缩小 ========== */
+.audio-mini {
+  position: fixed;
+  top: 90px;
+  right: 15px;
+  z-index: 100;
+  background: rgba(0,0,0,0.7);
+  padding: 8px 12px;
+  border-radius: 15px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  min-width: auto; /* 关键：取消固定最小宽度 */
+  max-width: 80vw;  /* 手机上最大宽度为屏幕80% */
+  font-size: 0.95rem;
+}
+
+/* 手机端进一步缩小 */
+@media (max-width: 768px) {
+  .audio-mini {
+    top: 70px;
+    right: 10px;
+    padding: 6px 10px;
+    font-size: 0.85rem;
+    max-width: 70vw; /* 更窄 */
+  }
+  .audio-mini audio {
+    width: 150px;   /* 手机音频控件缩小 */
+    height: 28px;
+  }
+}
+
+/* ========== 按钮：增加手机底部间距 ========== */
+@media (max-width: 768px) {
+  .controls-bottom {
+    bottom: 15px !important; /* 从10px增至15px */
+    gap: 12px !important;
+  }
+  .controls-bottom .btn {
+    padding: 6px 14px !important;
+    font-size: 1.1rem !important;
+    min-width: 75px !important;
+  }
+}
     
     .audio-mini .song-btn:hover {
       background: rgba(56, 189, 248, 0.4);
@@ -385,32 +415,12 @@
         padding: 10px 20px; 
         min-width: 130px;
       }
-      /* 手机端进一步缩小 */
-      @media (max-width: 768px) {
-        .audio-mini {
-          top: 70px;
-          right: 10px;
-          padding: 6px 10px;
-          font-size: 0.85rem;
-          max-width: 70vw; /* 更窄 */
-        }
-        .audio-mini audio {
-          width: 150px;   /* 手机音频控件缩小 */
-          height: 28px;
-        }
+      .audio-mini {
+        top: 120px;
+        right: 25px;
       }
-
-      /* ========== 按钮：增加手机底部间距 ========== */
-      @media (max-width: 768px) {
-        .controls-bottom {
-          bottom: 15px !important; /* 从10px增至15px */
-          gap: 12px !important;
-        }
-        .controls-bottom .btn {
-          padding: 6px 14px !important;
-          font-size: 1.1rem !important;
-          min-width: 75px !important;
-        }
+      .audio-mini audio {
+        width: 180px;
       }
       
       /* 第18-20、30頁響應式 */
