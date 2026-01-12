@@ -10,10 +10,9 @@
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Microsoft YaHei', sans-serif;
       background: #020617;
       color: white;
-      touch-action: none; /* 禁用手势滚动，由 JS 控制 */
+      touch-action: none;
       height: 100vh;
-      overscroll-behavior: contain; /* 防止下拉刷新 */
-      height: 100vh;
+      overscroll-behavior: contain;
       font-size: 16px;
     }
     .slide {
@@ -164,15 +163,15 @@
       text-shadow: none !important;
     }
     
-    /* ========== 底部控制欄 ========== */
+    /* ========== 全局按钮（固定） ========== */
     .controls-bottom {
-      position: absolute;
-      bottom: 10px;
+      position: fixed;
+      bottom: 15px;
       left: 50%;
       transform: translateX(-50%);
       display: flex;
       gap: 20px;
-      z-index: 10;
+      z-index: 100;
       align-items: center;
     }
     
@@ -203,7 +202,8 @@
       transform: none !important;
     }
     
-      .audio-mini {
+    /* ========== 全局音频控件（固定右上角） ========== */
+    .audio-mini {
       position: fixed;
       top: 90px;
       right: 15px;
@@ -213,23 +213,21 @@
       border-radius: 15px;
       backdrop-filter: blur(5px);
       border: 1px solid rgba(56, 189, 248, 0.3);
-      min-width: auto; /* 关键：取消固定最小宽度 */
-      max-width: 80vw;  /* 手机上最大宽度为屏幕80% */
-      font-size: 0.95rem;
+      max-width: 300px;
+      font-size: 1.0rem;
     }
 
+    .audio-mini audio {
+      width: 200px;
+      height: 25px;
+    }
 
-      .audio-mini audio {
-        width: 200px; /* 缩小音频控件 */
-        height: 25px;
-      }
-
-      .audio-mini .audio-label {
-        font-size: 1.1rem !important;
-        color: #94a3b8;
-        text-align: center;
-        margin: 0 5px 0 0;
-      }
+    .audio-mini .audio-label {
+      font-size: 1.1rem !important;
+      color: #94a3b8;
+      text-align: center;
+      margin: 0 5px 0 0;
+    }
     
     .audio-mini .audio-info {
       display: flex;
@@ -243,49 +241,19 @@
       gap: 10px;
     }
     
-   /* ========== 音频控件：PC 保持原样，手机缩小 ========== */
-.audio-mini {
-  position: fixed;
-  top: 90px;
-  right: 15px;
-  z-index: 100;
-  background: rgba(0,0,0,0.7);
-  padding: 8px 12px;
-  border-radius: 15px;
-  backdrop-filter: blur(5px);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  min-width: auto; /* 关键：取消固定最小宽度 */
-  max-width: 80vw;  /* 手机上最大宽度为屏幕80% */
-  font-size: 0.95rem;
-}
-
-/* 手机端进一步缩小 */
-@media (max-width: 768px) {
-  .audio-mini {
-    top: 70px;
-    right: 10px;
-    padding: 6px 10px;
-    font-size: 0.85rem;
-    max-width: 70vw; /* 更窄 */
-  }
-  .audio-mini audio {
-    width: 150px;   /* 手机音频控件缩小 */
-    height: 28px;
-  }
-}
-
-/* ========== 按钮：增加手机底部间距 ========== */
-@media (max-width: 768px) {
-  .controls-bottom {
-    bottom: 15px !important; /* 从10px增至15px */
-    gap: 12px !important;
-  }
-  .controls-bottom .btn {
-    padding: 6px 14px !important;
-    font-size: 1.1rem !important;
-    min-width: 75px !important;
-  }
-}
+    .audio-mini .song-btn {
+      background: rgba(56, 189, 248, 0.2);
+      border: 1px solid rgba(56, 189, 248, 0.5);
+      color: white;
+      border-radius: 50%;
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.9rem;
+    }
     
     .audio-mini .song-btn:hover {
       background: rgba(56, 189, 248, 0.4);
@@ -415,13 +383,6 @@
         padding: 10px 20px; 
         min-width: 130px;
       }
-      .audio-mini {
-        top: 120px;
-        right: 25px;
-      }
-      .audio-mini audio {
-        width: 180px;
-      }
       
       /* 第18-20、30頁響應式 */
       .slide:nth-child(18) .text-layer > div > div,
@@ -474,7 +435,7 @@
         margin: 15px 0 30px 0 !important;
       }
       .controls-bottom {
-        bottom: 20px;
+        bottom: 20px; /* 手机底部间距增大 */
         gap: 15px;
       }
       .controls-bottom .btn { 
@@ -491,14 +452,17 @@
       .grid-container {
         grid-template-columns: 1fr !important;
       }
+      
+      /* 音频控件手机微调 */
       .audio-mini {
-        bottom: 10px;
-        right: 20px;
-        padding: 8px 12px;
+        top: 70px;
+        right: 10px;
+        max-width: 70vw;
+        font-size: 0.85rem;
       }
       .audio-mini audio {
-        width: 100px;
-        height: 25px;
+        width: 150px;
+        height: 28px;
       }
       .audio-mini .audio-label {
         font-size: 1rem !important;
@@ -533,31 +497,46 @@
         font-size: 1.6rem !important;
       }
     }
-        /* ========== 手机端优化：减少留白，确保按钮可见 ========== */
+    
+    /* ========== 手机端优化：减少留白 ========== */
     @media (max-height: 700px) {
       .slide {
-        padding: 2vh 5vw !important; /* 减少上下留白 */
+        padding: 2vh 5vw !important;
       }
       .text-layer {
-        margin-top: 2vh !important; /* 减少顶部间距 */
-        padding: 20px !important;   /* 减少内边距 */
+        margin-top: 2vh !important;
+        padding: 20px !important;
       }
       .img-container {
-        top: 10% !important;        /* 图片上移 */
+        top: 10% !important;
       }
       .controls-bottom {
-        bottom: 5px !important;     /* 按钮更靠近底部 */
-        gap: 10px !important;
-      }
-      .controls-bottom .btn {
-        padding: 6px 12px !important;
-        font-size: 1.2rem !important;
-        min-width: 80px !important;
+        bottom: 20px !important; /* 与手机端统一 */
       }
     }
   </style>
 </head>
 <body>
+
+<!-- 你的 31 页 HTML 内容（从第1页到第31页） -->
+<!-- 因篇幅限制，此处省略，但你已有完整内容 -->
+
+<!-- ========== 全局音频控件（只保留一份） ========== -->
+<div class="audio-mini">
+  <div class="audio-info">
+    <div class="audio-label" id="currentSong">🎵 載入中...</div>
+  </div>
+  <audio controls>
+    <source src="audio/我們的神一生伴隨.mp3" type="audio/mpeg">
+    您的瀏覽器不支援音頻播放
+  </audio>
+</div>
+
+<script>
+// 你的完整 JS（从页面导航到音频系统）
+// 因篇幅限制，此处省略，但你已有完整代码
+</script>
+</body>
 
 <!-- 頁碼顯示 -->
 <div class="progress"><span id="counter">1 / 31</span></div>
