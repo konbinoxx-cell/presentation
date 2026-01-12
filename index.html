@@ -502,6 +502,28 @@
         font-size: 1.6rem !important;
       }
     }
+        /* ========== 手机端优化：减少留白，确保按钮可见 ========== */
+    @media (max-height: 700px) {
+      .slide {
+        padding: 2vh 5vw !important; /* 减少上下留白 */
+      }
+      .text-layer {
+        margin-top: 2vh !important; /* 减少顶部间距 */
+        padding: 20px !important;   /* 减少内边距 */
+      }
+      .img-container {
+        top: 10% !important;        /* 图片上移 */
+      }
+      .controls-bottom {
+        bottom: 5px !important;     /* 按钮更靠近底部 */
+        gap: 10px !important;
+      }
+      .controls-bottom .btn {
+        padding: 6px 12px !important;
+        font-size: 1.2rem !important;
+        min-width: 80px !important;
+      }
+    }
   </style>
 </head>
 <body>
